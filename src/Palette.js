@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './Palette.css';
+
 import ColourBox from './ColourBox';
 
 export default function Palette({ palette }) {
