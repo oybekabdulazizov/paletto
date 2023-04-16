@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 import './Palette.css';
 
 import ColourBox from './ColourBox';
 
 export default function Palette({ palette }) {
-  const colourBoxes = palette.colours.map((c, id) => (
-    <ColourBox background={c.colour} name={c.name} key={id} />
+  const [state, setState] = useState({ level: 500 });
+  function changeLevel(level) {
+    setState((prevState) => ({
+      ...prevState,
+      level,
+    }));
+  }
+  const colourBoxes = palette.colours[state.level].map((colour, id) => (
+    <ColourBox background={colour.hex} name={colour.name} key={id} />
   ));
+
   return (
     <div className='Palette'>
+      <Slider
+        defaultValue={state.level}
+        min={100}
+        max={900}
+        step={100}
+        onChange={changeLevel}
+      />
       <div className='Palette-colours'>{colourBoxes}</div>
     </div>
   );
