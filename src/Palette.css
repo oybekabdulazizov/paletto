@@ -6,3 +6,12 @@
 .Palette-colours {
   height: 90%;
 }
+
+.Palette-footer {
+  height: 4vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  margin-right: 1em;
+}

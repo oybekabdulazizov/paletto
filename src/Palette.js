@@ -28,6 +28,11 @@ export default function Palette({ palette }) {
         changeFormat={changeFormat}
       />
       <div className='Palette-colours'>{colourBoxes}</div>
+      <footer className='Palette-footer'>
+        <span>
+          {palette.paletteName} <span>{palette.emoji}</span>
+        </span>
+      </footer>
     </div>
   );
 }
