@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { IconButton, MenuItem, Select, Snackbar } from '@mui/material';
@@ -33,7 +33,7 @@ export default function NavBar({ level, changeLevel, changeFormat }) {
   return (
     <nav className='NavBar'>
       <div className='logo'>
-        <a href='#'>Paletto</a>
+        <Link to='/'>Paletto</Link>
       </div>
       <div className='slider-container'>
         <span>Level: {level}</span>

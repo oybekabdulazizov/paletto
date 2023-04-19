@@ -1,12 +1,24 @@
 import React from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
+
+import seedPalette from './data/seedPalette';
+import PaletteList from './PaletteList';
 import Palette from './Palette';
-import seedColours from './data/seedColours';
-import { generatePalette } from './colourHelpers';
 
 export default function App() {
   return (
-    <div>
-      <Palette palette={generatePalette(seedColours[4])} />
-    </div>
+    <Routes>
+      <Route
+        exact
+        path='/'
+        element={<PaletteList seedPalette={seedPalette} />}
+      />
+      <Route
+        exact
+        path='/palette/:id'
+        element={<Palette seedPalette={seedPalette} />}
+      />
+      <Route path='/*' element={<Navigate to='/' replace />} />
+    </Routes>
   );
 }

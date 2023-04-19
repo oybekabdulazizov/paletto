@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
 
 import './Palette.css';
 
+import { generatePalette } from './colourHelpers';
 import ColourBox from './ColourBox';
 import NavBar from './NavBar';
 
-export default function Palette({ palette }) {
+export default function Palette({ seedPalette }) {
+  const { id } = useParams();
+  const palette = generatePalette(
+    seedPalette.find((palette) => palette.id === id)
+  );
+  if (!palette) {
+    <Navigate to='/' replace={true} />;
+  }
+
   const [state, setState] = useState({ level: 500, format: 'hex' });
 
   function changeLevel(level) {
@@ -16,8 +26,12 @@ export default function Palette({ palette }) {
     setState((prevState) => ({ ...prevState, format: val }));
   }
 
-  const colourBoxes = palette.colours[state.level].map((colour, id) => (
-    <ColourBox background={colour[state.format]} name={colour.name} key={id} />
+  const colourBoxes = palette.colours[state.level].map((colour) => (
+    <ColourBox
+      background={colour[state.format]}
+      name={colour.name}
+      key={colour.id}
+    />
   ));
 
   return (
