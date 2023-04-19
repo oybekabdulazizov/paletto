@@ -85,6 +85,7 @@
   transform: scale(0.1);
   color: white;
   opacity: 0;
+  z-index: -1;
 }
 
 .copy-msg.show {
