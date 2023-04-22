@@ -3,6 +3,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 
 import './ColourBox.css';
+import chroma from 'chroma-js';
 
 export default function ColourBox({
   background,
@@ -29,6 +30,8 @@ export default function ColourBox({
     }, 1500);
   };
 
+  const isDarkColour = chroma(background).luminance() <= 0.4;
+
   return (
     <CopyToClipboard text={background} onCopy={changeCopyState}>
       <div className='ColourBox' style={{ background }}>
@@ -37,12 +40,16 @@ export default function ColourBox({
           style={{ background }}
         />
         <div className={`copy-msg ${state.copied && `show`}`}>
-          <h1>Copied!</h1>
-          <p>{background}</p>
+          <h1 className={isDarkColour ? 'light-text' : 'dark-text'}>Copied!</h1>
+          <p className={isDarkColour ? 'light-text' : 'dark-text'}>
+            {background}
+          </p>
         </div>
         <div className='copy-container'>
           <div className='box-content'>
-            <span>{name}</span>
+            <span className={isDarkColour ? 'light-text' : 'dark-text'}>
+              {name}
+            </span>
           </div>
           <button className='copy-btn'>Copy</button>
         </div>
@@ -51,7 +58,13 @@ export default function ColourBox({
             to={`/palette/${paletteId}/${colourId}`}
             onClick={(e) => e.stopPropagation()}
           >
-            <span className='see-more'>More</span>
+            <span
+              className={
+                isDarkColour ? 'see-more light-text' : 'see-more dark-text'
+              }
+            >
+              More
+            </span>
           </Link>
         )}
       </div>

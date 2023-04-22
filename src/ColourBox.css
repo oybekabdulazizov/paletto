@@ -60,12 +60,19 @@
   font-size: 1em;
 }
 
+.light-text {
+  color: white;
+}
+
+.dark-text {
+  color: black;
+}
+
 .see-more {
   background: rgba(255, 255, 255, 0.3);
   border: none;
   outline: none;
   position: absolute;
-  color: white;
   right: 0;
   bottom: 0;
   font-size: 1em;
