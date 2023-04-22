@@ -26,11 +26,15 @@ export default function Palette({ seedPalette }) {
     setState((prevState) => ({ ...prevState, format: val }));
   }
 
+  console.log(palette.colours);
+
   const colourBoxes = palette.colours[state.level].map((colour) => (
     <ColourBox
       background={colour[state.format]}
       name={colour.name}
       key={colour.id}
+      colourId={colour.id}
+      paletteId={id}
     />
   ));
 

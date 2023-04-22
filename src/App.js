@@ -4,6 +4,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import seedPalette from './data/seedPalette';
 import PaletteList from './PaletteList';
 import Palette from './Palette';
+import SingleColourPalette from './SingleColourPalette';
 
 export default function App() {
   return (
@@ -17,6 +18,11 @@ export default function App() {
         exact
         path='/palette/:id'
         element={<Palette seedPalette={seedPalette} />}
+      />
+      <Route
+        exact
+        path='/palette/:paletteId/:colourId'
+        element={<SingleColourPalette />}
       />
       <Route path='/*' element={<Navigate to='/' replace />} />
     </Routes>
