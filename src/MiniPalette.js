@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled('div')(({ theme }) => ({
@@ -22,7 +23,7 @@ const Container = styled('div')(({ theme }) => ({
     height: '25%',
     width: '20%',
     display: 'inline-block',
-    margin: '0 auto -4px auto',
+    margin: '0 auto -4.5px auto',
     position: 'relative',
   },
   '& .title': {
@@ -41,7 +42,13 @@ const Container = styled('div')(({ theme }) => ({
   },
 }));
 
-export default function MiniPalette({ paletteName, emoji, colours }) {
+export default function MiniPalette({ id, paletteName, emoji, colours }) {
+  const history = useNavigate();
+  function handleGoToPalette(e) {
+    e.preventDefault();
+    history(`/palette/${id}`);
+  }
+
   const miniColourBoxes = colours.map((c) => (
     <div
       className='miniColour'
@@ -49,8 +56,9 @@ export default function MiniPalette({ paletteName, emoji, colours }) {
       key={c.name}
     ></div>
   ));
+
   return (
-    <Container>
+    <Container onClick={handleGoToPalette}>
       <div className='colours'>{miniColourBoxes}</div>
       <h5 className='title'>
         {paletteName} <span className='emoji'>{emoji}</span>
