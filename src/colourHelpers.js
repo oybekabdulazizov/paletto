@@ -18,7 +18,7 @@ export function generatePalette(starterPalette) {
     for (const i in scale) {
       newPalette.colours[levels[i]].push({
         name: `${colour.name} ${levels[i]}`,
-        id: `${colour.name.toLowerCase().replace(/ /g, '-')}-${levels[i]}`,
+        id: colour.name.toLowerCase().replace(/ /g, '-'),
         hex: scale[i],
         rgb: chroma(scale[i]).css(),
         rgba: chroma(scale[i])
