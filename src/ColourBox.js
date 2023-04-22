@@ -40,18 +40,20 @@ export default function ColourBox({
           <h1>Copied!</h1>
           <p>{background}</p>
         </div>
-        <button className='copy-btn'>Copy</button>
-        <div className='box-content'>
-          <span>{name}</span>
-          {showLink && (
-            <Link
-              to={`/palette/${paletteId}/${colourId}`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button className='btn-more'>More</button>
-            </Link>
-          )}
+        <div className='copy-container'>
+          <div className='box-content'>
+            <span>{name}</span>
+          </div>
+          <button className='copy-btn'>Copy</button>
         </div>
+        {showLink && (
+          <Link
+            to={`/palette/${paletteId}/${colourId}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className='see-more'>More</span>
+          </Link>
+        )}
       </div>
     </CopyToClipboard>
   );
