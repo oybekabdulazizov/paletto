@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
 import { generatePalette } from './colourHelpers';
 import ColourBox from './ColourBox';
+import NavBar from './NavBar';
+import PaletteFooter from './PaletteFooter';
 
 export default function SingleColourPalette({ seedPalette }) {
+  const [state, setState] = useState({ format: 'hex' });
+
   const { paletteId, colourId } = useParams();
   const palette = generatePalette(
     seedPalette.find((palette) => palette.id === paletteId)
@@ -26,12 +30,14 @@ export default function SingleColourPalette({ seedPalette }) {
   }
   const collectedShades = collectShades(palette, colourId);
 
-  console.log(collectShades(palette, colourId));
+  function changeFormat(val) {
+    setState((prevState) => ({ ...prevState, format: val }));
+  }
 
   const colourBoxes = collectedShades.map((shade) => (
     <ColourBox
       className=''
-      background={shade.hex}
+      background={shade[state.format]}
       name={shade.name}
       key={shade.name.toLowerCase().replace(/ /g, '-')}
       showLink={false}
@@ -40,8 +46,9 @@ export default function SingleColourPalette({ seedPalette }) {
 
   return (
     <div className='Palette'>
-      <h1>Single Colour Palette</h1>
+      <NavBar showSlider={false} changeFormat={changeFormat} />
       <div className='Palette-colours'>{colourBoxes}</div>
+      <PaletteFooter name={palette.paletteName} emoji={palette.emoji} />
     </div>
   );
 }

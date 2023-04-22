@@ -7,7 +7,12 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import './NavBar.css';
 
-export default function NavBar({ level, changeLevel, changeFormat }) {
+export default function NavBar({
+  level,
+  changeLevel,
+  changeFormat,
+  showSlider,
+}) {
   const [state, setState] = useState({ format: 'hex' });
 
   function handleChangeLevel(level) {
@@ -35,18 +40,20 @@ export default function NavBar({ level, changeLevel, changeFormat }) {
       <div className='logo'>
         <Link to='/'>Paletto</Link>
       </div>
-      <div className='slider-container'>
-        <span>Level: {level}</span>
-        <div className='slider'>
-          <Slider
-            defaultValue={level}
-            min={100}
-            max={900}
-            step={100}
-            onChange={handleChangeLevel}
-          />
+      {showSlider && (
+        <div className='slider-container'>
+          <span>Level: {level}</span>
+          <div className='slider'>
+            <Slider
+              defaultValue={level}
+              min={100}
+              max={900}
+              step={100}
+              onChange={handleChangeLevel}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className='select-container'>
         <Select value={state.format} onChange={handleChangeFormat}>
           <MenuItem value='hex'>HEX</MenuItem>

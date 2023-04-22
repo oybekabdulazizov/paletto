@@ -6,6 +6,7 @@ import './Palette.css';
 import { generatePalette } from './colourHelpers';
 import ColourBox from './ColourBox';
 import NavBar from './NavBar';
+import PaletteFooter from './PaletteFooter';
 
 export default function Palette({ seedPalette }) {
   const { id } = useParams();
@@ -43,13 +44,10 @@ export default function Palette({ seedPalette }) {
         level={state.level}
         changeLevel={changeLevel}
         changeFormat={changeFormat}
+        showSlider={true}
       />
       <div className='Palette-colours'>{colourBoxes}</div>
-      <footer className='Palette-footer'>
-        <span>
-          {palette.paletteName} <span>{palette.emoji}</span>
-        </span>
-      </footer>
+      <PaletteFooter name={palette.paletteName} emoji={palette.emoji} />
     </div>
   );
 }
