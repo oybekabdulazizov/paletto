@@ -7,10 +7,21 @@
   cursor: pointer;
 }
 
-.copy-btn {
+.SingleColourPalette .ColourBox {
+  height: 50%;
+}
+
+.go-back.ColourBox {
+  position: relative;
+  background-color: black;
+}
+
+.copy-btn,
+.go-back-btn {
   border: none;
   outline: none;
   font-size: 1em;
+  display: inline-block;
   width: 100px;
   height: 30px;
   position: absolute;
@@ -20,8 +31,13 @@
   margin-left: -50px;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.3);
-  opacity: 0;
   transition: 0.4s ease;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.copy-btn {
+  opacity: 0;
 }
 
 .ColourBox:hover .copy-btn {
@@ -52,6 +68,10 @@
   line-height: 30px;
   height: 30px;
   width: 60px;
+}
+
+.box-content .btn-more:hover {
+  cursor: pointer;
 }
 
 .copy-overlay {
