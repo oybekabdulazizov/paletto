@@ -22,7 +22,7 @@ export default function App() {
       <Route
         exact
         path='/palette/:paletteId/:colourId'
-        element={<SingleColourPalette />}
+        element={<SingleColourPalette seedPalette={seedPalette} />}
       />
       <Route path='/*' element={<Navigate to='/' replace />} />
     </Routes>

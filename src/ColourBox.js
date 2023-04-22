@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 
 import './ColourBox.css';
 
-export default function ColourBox({ background, name, colourId, paletteId }) {
+export default function ColourBox({
+  background,
+  name,
+  colourId,
+  paletteId,
+  showLink,
+}) {
   const [state, setState] = useState({
     copied: false,
   });
@@ -37,12 +43,14 @@ export default function ColourBox({ background, name, colourId, paletteId }) {
         <button className='copy-btn'>Copy</button>
         <div className='box-content'>
           <span>{name}</span>
-          <Link
-            to={`/palette/${paletteId}/${colourId}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button className='btn-more'>More</button>
-          </Link>
+          {showLink && (
+            <Link
+              to={`/palette/${paletteId}/${colourId}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className='btn-more'>More</button>
+            </Link>
+          )}
         </div>
       </div>
     </CopyToClipboard>
