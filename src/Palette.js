@@ -12,6 +12,7 @@ import PaletteFooter from './PaletteFooter';
 const PaletteContainer = styled('div')(() => ({
   width: '100vw',
   height: '100vh',
+  overflow: 'hidden',
   '.Palette-colours': {
     height: '90%',
   },
