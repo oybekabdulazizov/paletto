@@ -5,8 +5,6 @@ import chroma from 'chroma-js';
 
 import ColourBoxWithStyles from './styles/ColourBoxWithStyles';
 
-// import './ColourBox.css';
-
 export default function ColourBox({
   background,
   name,

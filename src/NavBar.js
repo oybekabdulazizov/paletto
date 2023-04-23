@@ -7,8 +7,6 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import NavBarWithStyles from './styles/NavBarWithStyles';
 
-// import './NavBar.css';
-
 export default function NavBar({
   level,
   changeLevel,

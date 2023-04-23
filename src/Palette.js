@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
-// import './Palette.css';
-
 import { generatePalette } from './colourHelpers';
 import ColourBox from './ColourBox';
 import NavBar from './NavBar';
