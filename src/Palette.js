@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
-import './Palette.css';
+// import './Palette.css';
 
 import { generatePalette } from './colourHelpers';
 import ColourBox from './ColourBox';
 import NavBar from './NavBar';
 import PaletteFooter from './PaletteFooter';
+
+const PaletteContainer = styled('div')(() => ({
+  width: '100vw',
+  height: '100vh',
+  '.Palette-colours': {
+    height: '90%',
+  },
+}));
 
 export default function Palette({ seedPalette }) {
   const { id } = useParams();
@@ -39,7 +48,7 @@ export default function Palette({ seedPalette }) {
   ));
 
   return (
-    <div className='Palette'>
+    <PaletteContainer>
       <NavBar
         level={state.level}
         changeLevel={changeLevel}
@@ -48,6 +57,6 @@ export default function Palette({ seedPalette }) {
       />
       <div className='Palette-colours'>{colourBoxes}</div>
       <PaletteFooter name={palette.paletteName} emoji={palette.emoji} />
-    </div>
+    </PaletteContainer>
   );
 }
