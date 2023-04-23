@@ -44,7 +44,7 @@ export default function Palette({ seedPalette }) {
       key={colour.id}
       colourId={colour.id}
       paletteId={id}
-      showLink={true}
+      showFullPalette={true}
     />
   ));
 

@@ -122,7 +122,7 @@ export default function ColourBox({
   name,
   colourId,
   paletteId,
-  showLink,
+  showFullPalette,
 }) {
   const [state, setState] = useState({
     copied: false,
@@ -147,7 +147,7 @@ export default function ColourBox({
   return (
     <CopyToClipboard text={background} onCopy={changeCopyState}>
       <ColourBoxContainer
-        style={{ background, height: showLink ? '25%' : '50%' }}
+        style={{ background, height: showFullPalette ? '25%' : '50%' }}
       >
         <div
           className={`copy-overlay ${state.copied && `show`}`}
@@ -169,7 +169,7 @@ export default function ColourBox({
             Copy
           </button>
         </div>
-        {showLink && (
+        {showFullPalette && (
           <Link
             to={`/palette/${paletteId}/${colourId}`}
             onClick={(e) => e.stopPropagation()}

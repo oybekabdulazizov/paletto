@@ -82,7 +82,7 @@ export default function SingleColourPalette({ seedPalette }) {
       background={shade[state.format]}
       name={shade.name}
       key={shade.name.toLowerCase().replace(/ /g, '-')}
-      showLink={false}
+      showFullPalette={false}
     />
   ));
 
