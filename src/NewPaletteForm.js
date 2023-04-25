@@ -14,10 +14,13 @@ import { ChromePicker } from 'react-color';
 import { Button } from '@mui/material';
 import chroma from 'chroma-js';
 
+import NewColourBox from './NewColourBox';
+
 const drawerWidth = 360;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
+    height: 'calc(100vh - 56px)',
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
@@ -170,13 +173,9 @@ export default function NewPaletteForm() {
       </Drawer>
       <Main open={state.open}>
         <DrawerHeader />
-        <ul>
-          {state.colours.map((colour, id) => (
-            <li key={id} style={{ backgroundColor: colour }}>
-              {colour}
-            </li>
-          ))}
-        </ul>
+        {state.colours.map((colour, id) => (
+          <NewColourBox key={id} name={colour} background={colour} />
+        ))}
       </Main>
     </Box>
   );
