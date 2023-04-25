@@ -17,7 +17,11 @@ export default styled('div')(() => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'baseline',
     color: 'white',
+    '& a': {
+      color: 'white',
+    },
   },
   '& .palettes': {
     boxSizing: 'border-box',
