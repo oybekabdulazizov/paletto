@@ -16,6 +16,7 @@ import chroma from 'chroma-js';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 import NewColourBox from './NewColourBox';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 360;
 
@@ -65,13 +66,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
 }));
 
-export default function NewPaletteForm() {
+export default function NewPaletteForm({ palettes, savePalette }) {
   const [state, setState] = useState({
     open: false,
     newColour: '#fff',
     newColourName: '',
     colours: [],
+    newPaletteName: '',
   });
+
+  const history = useNavigate();
 
   useEffect(() => {
     ValidatorForm.addValidationRule('isColourNameUnique', (value) =>
@@ -81,7 +85,11 @@ export default function NewPaletteForm() {
     ValidatorForm.addValidationRule('isColourUnique', (value) =>
       state.colours.every((c) => c.colour !== state.newColour)
     );
-  }, [state.colours, state.newColour]);
+
+    ValidatorForm.addValidationRule('isPaletteNameUnique', (value) =>
+      palettes.every((p) => p.paletteName.toLowerCase() !== value.toLowerCase())
+    );
+  }, [state.colours, state.newColour, palettes]);
 
   const handleDrawerOpen = () => {
     setState((prevState) => ({
@@ -108,7 +116,7 @@ export default function NewPaletteForm() {
     e.preventDefault();
     setState((prevState) => ({
       ...prevState,
-      newColourName: e.target.value,
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -119,6 +127,7 @@ export default function NewPaletteForm() {
         ...state.colours,
         {
           name: state.newColourName,
+          id: state.newColourName.toLowerCase().replace(/ /g, ''),
           colour: state.newColour,
         },
       ],
@@ -126,11 +135,24 @@ export default function NewPaletteForm() {
     }));
   };
 
+  const handleSavePalette = () => {
+    savePalette({
+      paletteName: state.newPaletteName,
+      id: state.newPaletteName.toLowerCase().replace(/ /g, '-'),
+      colours: state.colours,
+    });
+    setState((prevState) => ({
+      ...prevState,
+      newPaletteName: '',
+    }));
+    history('/');
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position='fixed' open={state.open}>
-        <Toolbar>
+        <Toolbar style={{ backgroundColor: 'white', color: 'black' }}>
           <IconButton
             color='inherit'
             aria-label='open drawer'
@@ -143,6 +165,26 @@ export default function NewPaletteForm() {
           <Typography variant='h6' noWrap component='div'>
             Create Palette
           </Typography>
+          <ValidatorForm
+            instantValidate={false}
+            onSubmit={handleSavePalette}
+            onError={(errors) => console.log(errors)}
+          >
+            <TextValidator
+              label='Palette Name'
+              name='newPaletteName'
+              value={state.newPaletteName}
+              onChange={handleChange}
+              validators={['required', 'isPaletteNameUnique']}
+              errorMessages={[
+                'Palette Name is required',
+                'Palette Name Already In Use',
+              ]}
+            />
+            <Button variant='contained' color='primary' type='submit'>
+              Save Palette
+            </Button>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -184,7 +226,7 @@ export default function NewPaletteForm() {
         >
           <TextValidator
             label='Colour Name'
-            name='colourname'
+            name='newColourName'
             value={state.newColourName}
             onChange={handleChange}
             validators={['required', 'isColourNameUnique', 'isColourUnique']}
