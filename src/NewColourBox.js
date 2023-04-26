@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import DeleteIcon from '@mui/icons-material/Delete';
+import chroma from 'chroma-js';
 
 const NewColourBoxWithStyles = styled('div')(() => ({
   width: '20%',
@@ -8,13 +10,44 @@ const NewColourBoxWithStyles = styled('div')(() => ({
   display: 'inline-block',
   position: 'relative',
   cursor: 'pointer',
-  marginBottom: '-4px',
+  marginBottom: '-7px',
+  transition: 'all 0.2s ease-in-out',
+  '&:hover .box-content': {
+    color: 'white',
+  },
+  '.box-content': {
+    position: 'absolute',
+    width: '100%',
+    left: '0px',
+    bottom: '0px',
+    padding: '6px',
+    letterSpacing: '1px',
+    fontSize: '1em',
+    display: 'flex',
+    justifyContent: 'space-between',
+    transition: 'all 0.2s ease-in-out',
+    color: 'rgba(0,0,0,0.5)',
+  },
+  '.delete-icon': {
+    transform: 'scale(0.9)',
+    transition: 'transform 0.2s ease-in-out',
+    '&:hover': {
+      transform: 'scale(1.4)',
+    },
+  },
 }));
 
 export default function NewColourBox({ name, background }) {
+  const textColour =
+    chroma(background).luminance() <= 0.4
+      ? 'rgba(255,255,255,0.7)'
+      : 'rgba(0,0,0,0.7)';
   return (
     <NewColourBoxWithStyles style={{ background }}>
-      <span>{name}</span>
+      <div className='box-content'>
+        <span style={{ color: textColour }}>{name}</span>
+        <DeleteIcon className='delete-icon' style={{ color: textColour }} />
+      </div>
     </NewColourBoxWithStyles>
   );
 }
