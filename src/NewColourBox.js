@@ -20,7 +20,7 @@ const NewColourBoxWithStyles = styled('div')(() => ({
     width: '100%',
     left: '0px',
     bottom: '0px',
-    padding: '6px',
+    padding: '6px 10px',
     letterSpacing: '1px',
     fontSize: '1em',
     display: 'flex',
@@ -32,21 +32,29 @@ const NewColourBoxWithStyles = styled('div')(() => ({
     transform: 'scale(0.9)',
     transition: 'transform 0.2s ease-in-out',
     '&:hover': {
-      transform: 'scale(1.4)',
+      transform: 'scale(1.3)',
     },
   },
 }));
 
-export default function NewColourBox({ name, background }) {
+export default function NewColourBox({ id, name, background, deleteColour }) {
+  const handleDeleteColour = () => {
+    deleteColour(id);
+  };
   const textColour =
     chroma(background).luminance() <= 0.4
       ? 'rgba(255,255,255,0.7)'
       : 'rgba(0,0,0,0.7)';
+
   return (
     <NewColourBoxWithStyles style={{ background }}>
       <div className='box-content'>
         <span style={{ color: textColour }}>{name}</span>
-        <DeleteIcon className='delete-icon' style={{ color: textColour }} />
+        <DeleteIcon
+          className='delete-icon'
+          style={{ color: textColour }}
+          onClick={handleDeleteColour}
+        />
       </div>
     </NewColourBoxWithStyles>
   );

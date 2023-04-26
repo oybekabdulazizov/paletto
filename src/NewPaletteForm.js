@@ -148,6 +148,14 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     history('/');
   };
 
+  const handleDeleteColour = (colourID) => {
+    const filteredColours = state.colours.filter((c) => c.id !== colourID);
+    setState((prevState) => ({
+      ...prevState,
+      colours: filteredColours,
+    }));
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -252,7 +260,13 @@ export default function NewPaletteForm({ palettes, savePalette }) {
       <Main open={state.open}>
         <DrawerHeader />
         {state.colours.map((c, id) => (
-          <NewColourBox key={id} name={c.name} background={c.colour} />
+          <NewColourBox
+            key={c.id}
+            id={c.id}
+            name={c.name}
+            background={c.colour}
+            deleteColour={handleDeleteColour}
+          />
         ))}
       </Main>
     </Box>
