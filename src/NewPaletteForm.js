@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -13,6 +13,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChromePicker } from 'react-color';
 import { Button } from '@mui/material';
 import chroma from 'chroma-js';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 import NewColourBox from './NewColourBox';
 
@@ -65,11 +66,22 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function NewPaletteForm() {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     open: false,
-    currentColour: 'white',
+    newColour: '#fff',
+    newColourName: '',
     colours: [],
   });
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule('isColourNameUnique', (value) =>
+      state.colours.every((c) => c.name.toLowerCase() !== value.toLowerCase())
+    );
+
+    ValidatorForm.addValidationRule('isColourUnique', (value) =>
+      state.colours.every((c) => c.colour !== state.newColour)
+    );
+  }, [state.colours, state.newColour]);
 
   const handleDrawerOpen = () => {
     setState((prevState) => ({
@@ -88,21 +100,29 @@ export default function NewPaletteForm() {
   const handleChangeComplete = (newColour) => {
     setState((prevState) => ({
       ...prevState,
-      currentColour: newColour.hex,
+      newColour: newColour.hex,
+    }));
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setState((prevState) => ({
+      ...prevState,
+      newColourName: e.target.value,
     }));
   };
 
   const handleAddColour = () => {
-    const existingColour = state.colours.find(
-      (colour) => colour === state.currentColour
-    );
-    if (existingColour) {
-      alert('This colour already exists!');
-      return;
-    }
     setState((prevState) => ({
       ...prevState,
-      colours: [...state.colours, state.currentColour],
+      colours: [
+        ...state.colours,
+        {
+          name: state.newColourName,
+          colour: state.newColour,
+        },
+      ],
+      newColourName: '',
     }));
   };
 
@@ -154,27 +174,43 @@ export default function NewPaletteForm() {
           </Button>
         </div>
         <ChromePicker
-          color={state.currentColour}
+          color={state.newColour}
           onChangeComplete={handleChangeComplete}
         />
-        <Button
-          variant='contained'
-          onClick={handleAddColour}
-          style={{
-            backgroundColor: state.currentColour,
-            color:
-              chroma(state.currentColour).luminance() <= 0.4
-                ? 'white'
-                : 'black',
-          }}
+        <ValidatorForm
+          instantValidate={false}
+          onSubmit={handleAddColour}
+          onError={(errors) => console.log(errors)}
         >
-          Add Colour
-        </Button>
+          <TextValidator
+            label='Colour Name'
+            name='colourname'
+            value={state.newColourName}
+            onChange={handleChange}
+            validators={['required', 'isColourNameUnique', 'isColourUnique']}
+            errorMessages={[
+              'Colour Name is required',
+              'Colour Name Must Be Unique',
+              'Colour Must Be Unique',
+            ]}
+          />
+          <Button
+            variant='contained'
+            type='submit'
+            style={{
+              backgroundColor: state.newColour,
+              color:
+                chroma(state.newColour).luminance() <= 0.3 ? 'white' : 'black',
+            }}
+          >
+            Add Colour
+          </Button>
+        </ValidatorForm>
       </Drawer>
       <Main open={state.open}>
         <DrawerHeader />
-        {state.colours.map((colour, id) => (
-          <NewColourBox key={id} name={colour} background={colour} />
+        {state.colours.map((c, id) => (
+          <NewColourBox key={id} name={c.name} background={c.colour} />
         ))}
       </Main>
     </Box>
