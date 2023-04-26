@@ -7,10 +7,10 @@ import NavBar from './NavBar';
 import PaletteFooter from './PaletteFooter';
 import PaletteWithStyles from './styles/PaletteWithStyles';
 
-export default function Palette({ seedPalette }) {
+export default function Palette({ palettes }) {
   const { id } = useParams();
   const palette = generatePalette(
-    seedPalette.find((palette) => palette.id === id)
+    palettes.find((palette) => palette.id === id)
   );
   if (!palette) {
     <Navigate to='/' replace={true} />;

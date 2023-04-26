@@ -7,12 +7,12 @@ import NavBar from './NavBar';
 import PaletteFooter from './PaletteFooter';
 import PaletteWithStyles from './styles/PaletteWithStyles';
 
-export default function SingleColourPalette({ seedPalette }) {
+export default function SingleColourPalette({ palettes }) {
   const [state, setState] = useState({ format: 'hex' });
 
   const { paletteId, colourId } = useParams();
   const palette = generatePalette(
-    seedPalette.find((palette) => palette.id === paletteId)
+    palettes.find((palette) => palette.id === paletteId)
   );
   if (!palette) {
     <Navigate to='/' replace={true} />;

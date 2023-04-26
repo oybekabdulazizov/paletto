@@ -4,7 +4,7 @@ import MiniPalette from './MiniPalette';
 import PaletteListWithStyles from './styles/PaletteListWithStyles';
 import { Link } from 'react-router-dom';
 
-export default function PaletteList({ seedPalette }) {
+export default function PaletteList({ palettes }) {
   return (
     <PaletteListWithStyles>
       <div className='container'>
@@ -13,7 +13,7 @@ export default function PaletteList({ seedPalette }) {
           <Link to='/palette/new'>Create Palette</Link>
         </nav>
         <div className='palettes'>
-          {seedPalette.map((palette) => (
+          {palettes.map((palette) => (
             <div key={palette.id}>
               <MiniPalette {...palette} />
             </div>
