@@ -78,12 +78,20 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
 }));
 
+const getRandomColour = (palettes) => {
+  const randomPalette = palettes[Math.floor(Math.random() * palettes.length)];
+  return randomPalette.colours[
+    Math.floor(Math.random() * randomPalette.colours.length)
+  ];
+};
+
 export default function NewPaletteForm({ palettes, savePalette }) {
   const [newPaletteName, setNewPaletteName] = useState('');
   const [newColourName, setNewColourName] = useState('');
-  const [newColour, setNewColour] = useState('fff');
-  const [open, setOpen] = useState(false);
+  const [newColour, setNewColour] = useState(getRandomColour(palettes).colour);
+  const [open, setOpen] = useState(true);
   const [colours, setColours] = useState([]);
+  let paletteFull = colours.length >= 20;
 
   const history = useNavigate();
 
@@ -126,15 +134,35 @@ export default function NewPaletteForm({ palettes, savePalette }) {
   };
 
   const handleAddColour = () => {
-    setColours([
-      ...colours,
-      {
-        name: newColourName,
-        id: newColourName.toLowerCase().replace(/ /g, ''),
-        colour: newColour,
-      },
-    ]);
-    setNewColourName('');
+    if (!paletteFull) {
+      setColours([
+        ...colours,
+        {
+          name: newColourName,
+          id: newColourName.toLowerCase().replace(/ /g, ''),
+          colour: newColour,
+        },
+      ]);
+      setNewColourName('');
+    }
+  };
+
+  const handleAddRandomColour = () => {
+    let randomColour;
+    do {
+      randomColour = getRandomColour(palettes);
+    } while (colours.find((c) => c.name === randomColour.name));
+
+    if (!paletteFull) {
+      setColours([
+        ...colours,
+        {
+          name: randomColour.name,
+          id: randomColour.name.toLowerCase().replace(/ /g, '-'),
+          colour: randomColour.colour,
+        },
+      ]);
+    }
   };
 
   const handleSavePalette = () => {
@@ -151,6 +179,8 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     const filteredColours = colours.filter((c) => c.id !== id);
     setColours([...filteredColours]);
   };
+
+  const handleClearPalette = () => setColours([]);
 
   const handleDragEnd = (e) => {
     const { active, over } = e;
@@ -227,10 +257,19 @@ export default function NewPaletteForm({ palettes, savePalette }) {
         <Divider />
         <Typography variant='h5'>Design Your Palette</Typography>
         <div>
-          <Button variant='contained' color='secondary'>
+          <Button
+            variant='contained'
+            color='secondary'
+            onClick={handleClearPalette}
+          >
             Clear Palette
           </Button>
-          <Button variant='contained' color='primary'>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={handleAddRandomColour}
+            disabled={paletteFull}
+          >
             Random Colour
           </Button>
         </div>
@@ -258,12 +297,13 @@ export default function NewPaletteForm({ palettes, savePalette }) {
           <Button
             variant='contained'
             type='submit'
+            disabled={paletteFull}
             style={{
-              backgroundColor: newColour,
+              backgroundColor: paletteFull ? 'gray' : newColour,
               color: chroma(newColour).luminance() <= 0.3 ? 'white' : 'black',
             }}
           >
-            Add Colour
+            {paletteFull ? 'Palette Full' : 'Add Colour'}
           </Button>
         </ValidatorForm>
       </Drawer>
