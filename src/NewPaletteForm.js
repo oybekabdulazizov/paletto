@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -7,10 +7,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { ChromePicker } from 'react-color';
 import { Button } from '@mui/material';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import chroma from 'chroma-js';
 import {
   DndContext,
   PointerSensor,
@@ -26,6 +23,7 @@ import {
 
 import DraggableColourBox from './DraggableColourBox';
 import PaletteFormNavBar from './PaletteFormNavBar';
+import ColourPickerForm from './ColourPickerForm';
 
 const drawerWidth = 360;
 
@@ -66,8 +64,6 @@ const getRandomColour = (palettes) => {
 };
 
 export default function NewPaletteForm({ palettes, savePalette }) {
-  const [newColourName, setNewColourName] = useState('');
-  const [newColour, setNewColour] = useState(getRandomColour(palettes).colour);
   const [open, setOpen] = useState(true);
   const [colours, setColours] = useState([]);
   let paletteFull = colours.length >= 20;
@@ -82,32 +78,11 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     })
   );
 
-  useEffect(() => {
-    ValidatorForm.addValidationRule('isColourNameUnique', (value) =>
-      colours.every((c) => c.name.toLowerCase() !== value.toLowerCase())
-    );
-
-    ValidatorForm.addValidationRule('isColourUnique', (value) =>
-      colours.every((c) => c.colour !== newColour)
-    );
-
-    ValidatorForm.addValidationRule('isPaletteNameUnique', (value) =>
-      palettes.every((p) => p.paletteName.toLowerCase() !== value.toLowerCase())
-    );
-  }, [colours, newColour, palettes]);
-
   const handleDrawerOpen = () => setOpen(true);
 
   const handleDrawerClose = () => setOpen(false);
 
-  const handleChangeComplete = (newCol) => setNewColour(newCol.hex);
-
-  const handleNewColourNameChange = (e) => {
-    e.preventDefault();
-    setNewColourName(e.target.value);
-  };
-
-  const handleAddColour = () => {
+  const handleAddColour = (newColour, newColourName) => {
     if (!paletteFull) {
       setColours([
         ...colours,
@@ -117,7 +92,6 @@ export default function NewPaletteForm({ palettes, savePalette }) {
           colour: newColour,
         },
       ]);
-      setNewColourName('');
     }
   };
 
@@ -215,39 +189,12 @@ export default function NewPaletteForm({ palettes, savePalette }) {
             Random Colour
           </Button>
         </div>
-        <ChromePicker
-          color={newColour}
-          onChangeComplete={handleChangeComplete}
+        <ColourPickerForm
+          addColour={handleAddColour}
+          colours={colours}
+          paletteFull={paletteFull}
+          randomColour={getRandomColour(palettes).colour}
         />
-        <ValidatorForm
-          instantValidate={false}
-          onSubmit={handleAddColour}
-          onError={(errors) => console.log(errors)}
-        >
-          <TextValidator
-            label='Colour Name'
-            name='newColourName'
-            value={newColourName}
-            onChange={handleNewColourNameChange}
-            validators={['required', 'isColourNameUnique', 'isColourUnique']}
-            errorMessages={[
-              'Colour Name is required',
-              'Colour Name Must Be Unique',
-              'Colour Must Be Unique',
-            ]}
-          />
-          <Button
-            variant='contained'
-            type='submit'
-            disabled={paletteFull}
-            style={{
-              backgroundColor: paletteFull ? 'gray' : newColour,
-              color: chroma(newColour).luminance() <= 0.3 ? 'white' : 'black',
-            }}
-          >
-            {paletteFull ? 'Palette Full' : 'Add Colour'}
-          </Button>
-        </ValidatorForm>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
