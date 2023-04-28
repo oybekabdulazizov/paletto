@@ -5,7 +5,7 @@ import chroma from 'chroma-js';
 import { CSS } from '@dnd-kit/utilities';
 import { useSortable } from '@dnd-kit/sortable';
 
-const NewColourBoxWithStyles = styled('div')(() => ({
+const DraggableColourBoxWithStyles = styled('div')(() => ({
   width: '20%',
   height: '25%',
   margin: '0 auto',
@@ -39,7 +39,12 @@ const NewColourBoxWithStyles = styled('div')(() => ({
   },
 }));
 
-export default function NewColourBox({ id, name, background, deleteColour }) {
+export default function DraggableColourBox({
+  id,
+  name,
+  background,
+  deleteColour,
+}) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -51,7 +56,7 @@ export default function NewColourBox({ id, name, background, deleteColour }) {
       : 'rgba(0,0,0,0.7)';
 
   return (
-    <NewColourBoxWithStyles
+    <DraggableColourBoxWithStyles
       style={{
         background,
         transform: CSS.Transform.toString(transform),
@@ -69,6 +74,6 @@ export default function NewColourBox({ id, name, background, deleteColour }) {
           onClick={handleDeleteColour}
         />
       </div>
-    </NewColourBoxWithStyles>
+    </DraggableColourBoxWithStyles>
   );
 }

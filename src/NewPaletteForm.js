@@ -28,7 +28,7 @@ import {
   rectSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import NewColourBox from './NewColourBox';
+import DraggableColourBox from './DraggableColourBox';
 
 const drawerWidth = 360;
 
@@ -276,7 +276,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
         >
           <SortableContext items={colours} strategy={rectSortingStrategy}>
             {colours.map((c) => (
-              <NewColourBox
+              <DraggableColourBox
                 key={c.id}
                 id={c.id}
                 name={c.name}
