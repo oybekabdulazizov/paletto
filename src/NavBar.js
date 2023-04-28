@@ -13,27 +13,20 @@ export default function NavBar({
   changeFormat,
   showSlider,
 }) {
-  const [state, setState] = useState({ format: 'hex' });
+  const [format, setFormat] = useState('hex');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   function handleChangeLevel(level) {
     changeLevel(level);
   }
 
   function handleChangeFormat(e) {
-    setState((prevState) => ({
-      ...prevState,
-      format: e.target.value,
-      snackbarOpen: true,
-    }));
+    setFormat(e.target.value);
+    setSnackbarOpen(true);
     changeFormat(e.target.value);
   }
 
-  function handleCloseSnackbar() {
-    setState((prevState) => ({
-      ...prevState,
-      snackbarOpen: false,
-    }));
-  }
+  const handleCloseSnackbar = () => setSnackbarOpen(false);
 
   return (
     <NavBarWithStyles>
@@ -55,17 +48,17 @@ export default function NavBar({
         </div>
       )}
       <div className='select-container'>
-        <Select value={state.format} onChange={handleChangeFormat}>
+        <Select value={format} onChange={handleChangeFormat}>
           <MenuItem value='hex'>HEX</MenuItem>
           <MenuItem value='rgb'>RGB</MenuItem>
           <MenuItem value='rgba'>RGBA</MenuItem>
         </Select>
       </div>
       <Snackbar
-        open={state.snackbarOpen}
+        open={snackbarOpen}
         autoHideDuration={3000}
         onClose={handleCloseSnackbar}
-        message={`Format changed to ${state.format.toUpperCase()}`}
+        message={`Format changed to ${format.toUpperCase()}`}
         action={[
           <IconButton
             onClick={handleCloseSnackbar}

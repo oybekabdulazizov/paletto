@@ -43,9 +43,7 @@ export default function NewColourBox({ id, name, background, deleteColour }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
-  const handleDeleteColour = () => {
-    deleteColour(id);
-  };
+  const handleDeleteColour = () => deleteColour(id);
 
   const textColour =
     chroma(background).luminance() <= 0.4

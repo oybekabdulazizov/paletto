@@ -8,8 +8,6 @@ import PaletteFooter from './PaletteFooter';
 import PaletteWithStyles from './styles/PaletteWithStyles';
 
 export default function SingleColourPalette({ palettes }) {
-  const [state, setState] = useState({ format: 'hex' });
-
   const { paletteId, colourId } = useParams();
   const palette = generatePalette(
     palettes.find((palette) => palette.id === paletteId)
@@ -17,6 +15,8 @@ export default function SingleColourPalette({ palettes }) {
   if (!palette) {
     <Navigate to='/' replace={true} />;
   }
+
+  const [format, setFormat] = useState('hex');
 
   function collectShades(palette, colourId) {
     let shades = [];
@@ -31,13 +31,11 @@ export default function SingleColourPalette({ palettes }) {
   }
   const collectedShades = collectShades(palette, colourId);
 
-  function changeFormat(val) {
-    setState((prevState) => ({ ...prevState, format: val }));
-  }
+  const changeFormat = (val) => setFormat(val);
 
   const colourBoxes = collectedShades.map((shade) => (
     <ColourBox
-      background={shade[state.format]}
+      background={shade[format]}
       name={shade.name}
       key={shade.name.toLowerCase().replace(/ /g, '-')}
       showFullPalette={false}

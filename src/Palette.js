@@ -16,19 +16,16 @@ export default function Palette({ palettes }) {
     <Navigate to='/' replace={true} />;
   }
 
-  const [state, setState] = useState({ level: 500, format: 'hex' });
+  const [level, setLevel] = useState(500);
+  const [format, setFormat] = useState('hex');
 
-  function changeLevel(level) {
-    setState((prevState) => ({ ...prevState, level }));
-  }
+  const changeLevel = (lvl) => setLevel(lvl);
 
-  function changeFormat(val) {
-    setState((prevState) => ({ ...prevState, format: val }));
-  }
+  const changeFormat = (fmt) => setFormat(fmt);
 
-  const colourBoxes = palette.colours[state.level].map((colour) => (
+  const colourBoxes = palette.colours[level].map((colour) => (
     <ColourBox
-      background={colour[state.format]}
+      background={colour[format]}
       name={colour.name}
       key={colour.id}
       colourId={colour.id}
@@ -40,7 +37,7 @@ export default function Palette({ palettes }) {
   return (
     <PaletteWithStyles>
       <NavBar
-        level={state.level}
+        level={level}
         changeLevel={changeLevel}
         changeFormat={changeFormat}
         showSlider={true}

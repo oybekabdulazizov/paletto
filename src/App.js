@@ -8,14 +8,9 @@ import SingleColourPalette from './SingleColourPalette';
 import NewPaletteForm from './NewPaletteForm';
 
 export default function App() {
-  const [state, setState] = useState({ palettes: seedPalette });
+  const [palettes, setPalettes] = useState([...seedPalette]);
 
-  const savePalette = (newPalette) => {
-    setState((prevState) => ({
-      ...prevState,
-      palettes: [...state.palettes, newPalette],
-    }));
-  };
+  const savePalette = (newPalette) => setPalettes([...palettes, newPalette]);
 
   return (
     <Routes>
@@ -23,23 +18,19 @@ export default function App() {
         exact
         path='/palette/new'
         element={
-          <NewPaletteForm savePalette={savePalette} palettes={state.palettes} />
+          <NewPaletteForm savePalette={savePalette} palettes={palettes} />
         }
       />
-      <Route
-        exact
-        path='/'
-        element={<PaletteList palettes={state.palettes} />}
-      />
+      <Route exact path='/' element={<PaletteList palettes={palettes} />} />
       <Route
         exact
         path='/palette/:id'
-        element={<Palette palettes={state.palettes} />}
+        element={<Palette palettes={palettes} />}
       />
       <Route
         exact
         path='/palette/:paletteId/:colourId'
-        element={<SingleColourPalette palettes={state.palettes} />}
+        element={<SingleColourPalette palettes={palettes} />}
       />
       <Route path='/*' element={<Navigate to='/' replace />} />
     </Routes>

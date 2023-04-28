@@ -79,13 +79,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function NewPaletteForm({ palettes, savePalette }) {
-  const [state, setState] = useState({
-    open: false,
-    newColour: '#fff',
-    newColourName: '',
-    newPaletteName: '',
-  });
-
+  const [newPaletteName, setNewPaletteName] = useState('');
+  const [newColourName, setNewColourName] = useState('');
+  const [newColour, setNewColour] = useState('fff');
+  const [open, setOpen] = useState(false);
   const [colours, setColours] = useState([]);
 
   const history = useNavigate();
@@ -104,68 +101,49 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     );
 
     ValidatorForm.addValidationRule('isColourUnique', (value) =>
-      colours.every((c) => c.colour !== state.newColour)
+      colours.every((c) => c.colour !== newColour)
     );
 
     ValidatorForm.addValidationRule('isPaletteNameUnique', (value) =>
       palettes.every((p) => p.paletteName.toLowerCase() !== value.toLowerCase())
     );
-  }, [colours, state.newColour, palettes]);
+  }, [colours, newColour, palettes]);
 
-  const handleDrawerOpen = () => {
-    setState((prevState) => ({
-      ...prevState,
-      open: true,
-    }));
-  };
+  const handleDrawerOpen = () => setOpen(true);
 
-  const handleDrawerClose = () => {
-    setState((prevState) => ({
-      ...prevState,
-      open: false,
-    }));
-  };
+  const handleDrawerClose = () => setOpen(false);
 
-  const handleChangeComplete = (newColour) => {
-    setState((prevState) => ({
-      ...prevState,
-      newColour: newColour.hex,
-    }));
-  };
+  const handleChangeComplete = (newCol) => setNewColour(newCol.hex);
 
-  const handleChange = (e) => {
+  const handleNewColourNameChange = (e) => {
     e.preventDefault();
-    setState((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
+    setNewColourName(e.target.value);
+  };
+
+  const handleNewPaletteNameChange = (e) => {
+    e.preventDefault();
+    setNewPaletteName(e.target.value);
   };
 
   const handleAddColour = () => {
     setColours([
       ...colours,
       {
-        name: state.newColourName,
-        id: state.newColourName.toLowerCase().replace(/ /g, ''),
-        colour: state.newColour,
+        name: newColourName,
+        id: newColourName.toLowerCase().replace(/ /g, ''),
+        colour: newColour,
       },
     ]);
-    setState((prevState) => ({
-      ...prevState,
-      newColourName: '',
-    }));
+    setNewColourName('');
   };
 
   const handleSavePalette = () => {
     savePalette({
-      paletteName: state.newPaletteName,
-      id: state.newPaletteName.toLowerCase().replace(/ /g, '-'),
+      paletteName: newPaletteName,
+      id: newPaletteName.toLowerCase().replace(/ /g, '-'),
       colours,
     });
-    setState((prevState) => ({
-      ...prevState,
-      newPaletteName: '',
-    }));
+    setNewPaletteName('');
     history('/');
   };
 
@@ -192,14 +170,14 @@ export default function NewPaletteForm({ palettes, savePalette }) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position='fixed' open={state.open}>
+      <AppBar position='fixed' open={open}>
         <Toolbar style={{ backgroundColor: 'white', color: 'black' }}>
           <IconButton
             color='inherit'
             aria-label='open drawer'
             onClick={handleDrawerOpen}
             edge='start'
-            sx={{ mr: 2, ...(state.open && { display: 'none' }) }}
+            sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
             <LibraryAddIcon />
           </IconButton>
@@ -214,8 +192,8 @@ export default function NewPaletteForm({ palettes, savePalette }) {
             <TextValidator
               label='Palette Name'
               name='newPaletteName'
-              value={state.newPaletteName}
-              onChange={handleChange}
+              value={newPaletteName}
+              onChange={handleNewPaletteNameChange}
               validators={['required', 'isPaletteNameUnique']}
               errorMessages={[
                 'Palette Name is required',
@@ -239,7 +217,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
         }}
         variant='persistent'
         anchor='left'
-        open={state.open}
+        open={open}
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose} sx={{ ml: 1 }}>
@@ -257,7 +235,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
           </Button>
         </div>
         <ChromePicker
-          color={state.newColour}
+          color={newColour}
           onChangeComplete={handleChangeComplete}
         />
         <ValidatorForm
@@ -268,8 +246,8 @@ export default function NewPaletteForm({ palettes, savePalette }) {
           <TextValidator
             label='Colour Name'
             name='newColourName'
-            value={state.newColourName}
-            onChange={handleChange}
+            value={newColourName}
+            onChange={handleNewColourNameChange}
             validators={['required', 'isColourNameUnique', 'isColourUnique']}
             errorMessages={[
               'Colour Name is required',
@@ -281,16 +259,15 @@ export default function NewPaletteForm({ palettes, savePalette }) {
             variant='contained'
             type='submit'
             style={{
-              backgroundColor: state.newColour,
-              color:
-                chroma(state.newColour).luminance() <= 0.3 ? 'white' : 'black',
+              backgroundColor: newColour,
+              color: chroma(newColour).luminance() <= 0.3 ? 'white' : 'black',
             }}
           >
             Add Colour
           </Button>
         </ValidatorForm>
       </Drawer>
-      <Main open={state.open}>
+      <Main open={open}>
         <DrawerHeader />
         <DndContext
           collisionDetection={closestCenter}

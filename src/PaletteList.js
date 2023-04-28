@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import MiniPalette from './MiniPalette';
 import PaletteListWithStyles from './styles/PaletteListWithStyles';
-import { Link } from 'react-router-dom';
 
 export default function PaletteList({ palettes }) {
   return (

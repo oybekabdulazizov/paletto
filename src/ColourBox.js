@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import chroma from 'chroma-js';
 
 import ColourBoxWithStyles from './styles/ColourBoxWithStyles';
@@ -12,21 +12,12 @@ export default function ColourBox({
   paletteId,
   showFullPalette,
 }) {
-  const [state, setState] = useState({
-    copied: false,
-  });
+  const [copied, setCopied] = useState(false);
 
   const changeCopyState = () => {
-    setState((prevState) => ({
-      ...prevState,
-      copied: true,
-    }));
-
+    setCopied(true);
     setTimeout(() => {
-      setState((prevState) => ({
-        ...prevState,
-        copied: false,
-      }));
+      setCopied(false);
     }, 1500);
   };
 
@@ -38,10 +29,10 @@ export default function ColourBox({
         style={{ background, height: showFullPalette ? '25%' : '50%' }}
       >
         <div
-          className={`copy-overlay ${state.copied && `show`}`}
+          className={`copy-overlay ${copied && `show`}`}
           style={{ background }}
         />
-        <div className={`copy-msg ${state.copied && `show`}`}>
+        <div className={`copy-msg ${copied && `show`}`}>
           <h1 className='copy-msg-h1' style={{ color: textColour }}>
             Copied!
           </h1>
