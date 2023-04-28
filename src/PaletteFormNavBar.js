@@ -15,6 +15,10 @@ const drawerWidth = 360;
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
+  position: 'fixed',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -27,6 +31,18 @@ const AppBar = styled(MuiAppBar, {
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
+  backgroundColor: 'white',
+  color: 'black',
+  '.nav-btns': {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    '& .validation-form': {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+    },
+  },
 }));
 
 export default function PaletteFormNavBar({
@@ -54,11 +70,12 @@ export default function PaletteFormNavBar({
       palettes.every((p) => p.paletteName.toLowerCase() !== value.toLowerCase())
     );
   }, [palettes]);
+
   return (
     <>
       <CssBaseline />
-      <AppBar position='fixed' open={open}>
-        <Toolbar style={{ backgroundColor: 'white', color: 'black' }}>
+      <AppBar open={open}>
+        <Toolbar className='toolbar'>
           <IconButton
             color='inherit'
             aria-label='open drawer'
@@ -69,12 +86,14 @@ export default function PaletteFormNavBar({
             <LibraryAddIcon />
           </IconButton>
           <Typography variant='h6' noWrap component='div'>
-            Create Palette
+            Create A Palette
           </Typography>
+        </Toolbar>
+        <div className='nav-btns'>
           <ValidatorForm
             instantValidate={false}
             onSubmit={handleSavePalette}
-            onError={(errors) => console.log(errors)}
+            className='validation-form'
           >
             <TextValidator
               label='Palette Name'
@@ -91,8 +110,12 @@ export default function PaletteFormNavBar({
               Save Palette
             </Button>
           </ValidatorForm>
-          <Link></Link>
-        </Toolbar>
+          <Link to='/'>
+            <Button variant='contained' color='secondary'>
+              Go Back
+            </Button>
+          </Link>
+        </div>
       </AppBar>
     </>
   );
