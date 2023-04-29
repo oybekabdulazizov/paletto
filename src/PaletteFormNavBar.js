@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
@@ -19,6 +19,7 @@ const AppBar = styled(MuiAppBar, {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
+  alignItems: 'center',
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -34,14 +35,9 @@ const AppBar = styled(MuiAppBar, {
   backgroundColor: 'white',
   color: 'black',
   '.nav-btns': {
+    margin: '0 1em',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    '& .validation-form': {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-evenly',
-    },
   },
 }));
 
@@ -51,6 +47,10 @@ export default function PaletteFormNavBar({
   savePalette,
   palettes,
 }) {
+  const [paletteFormOpen, setPaletteFormOpen] = useState(false);
+
+  const showForm = () => setPaletteFormOpen(true);
+
   const handleDrawerOpen = () => openDrawer();
 
   return (
@@ -72,13 +72,18 @@ export default function PaletteFormNavBar({
           </Typography>
         </Toolbar>
         <div className='nav-btns'>
-          <PaletteMetaForm savePalette={savePalette} palettes={palettes} />
           <Link to='/'>
-            <Button variant='contained' color='secondary'>
+            <Button sx={{ mr: 1 }} variant='contained' color='secondary'>
               Go Back
             </Button>
           </Link>
+          <Button variant='contained' color='primary' onClick={showForm}>
+            Save Palette
+          </Button>
         </div>
+        {paletteFormOpen && (
+          <PaletteMetaForm savePalette={savePalette} palettes={palettes} />
+        )}
       </AppBar>
     </>
   );
