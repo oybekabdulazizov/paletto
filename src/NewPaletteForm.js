@@ -35,6 +35,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
   const [open, setOpen] = useState(true);
   const [colours, setColours] = useState([]);
   let paletteFull = colours.length >= 20;
+  let paletteEmpty = colours.length < 1;
 
   const history = useNavigate();
 
@@ -120,6 +121,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
         openDrawer={handleDrawerOpen}
         savePalette={handleSavePalette}
         palettes={palettes}
+        paletteEmpty={paletteEmpty}
       />
       <Drawer className='drawer' variant='persistent' anchor='left' open={open}>
         <div className='drawer-header'>

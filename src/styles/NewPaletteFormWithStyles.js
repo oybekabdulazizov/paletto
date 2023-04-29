@@ -31,15 +31,17 @@ const NewPaletteFormWithStyles = styled('div', {
   },
   '.btns': {
     width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   '.btn': {
-    width: '50%',
+    width: '49%',
     fontSize: '0.8em',
   },
   '.main': {
-    height: 'calc(100vh - 56px)',
+    height: 'calc(100vh - 64px)',
     flexGrow: 1,
-    padding: '24px',
+    padding: '0',
     transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.6, 1)',
     transitionDuration: '225ms',
     marginLeft: `-${drawerWidth}px`,

@@ -15,6 +15,7 @@ export default function NewPaletteFormNavBar({
   openDrawer,
   savePalette,
   palettes,
+  paletteEmpty,
 }) {
   const [paletteFormOpen, setPaletteFormOpen] = useState(false);
 
@@ -48,7 +49,12 @@ export default function NewPaletteFormNavBar({
               Go Back
             </Button>
           </Link>
-          <Button variant='contained' color='primary' onClick={showForm}>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={showForm}
+            disabled={paletteEmpty}
+          >
             Save Palette
           </Button>
         </div>
