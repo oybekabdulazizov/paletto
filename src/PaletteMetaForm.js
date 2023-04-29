@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
-export default function PaletteMetaForm({ savePalette, palettes }) {
+export default function PaletteMetaForm({ savePalette, palettes, hideForm }) {
   const [dialogueOpen, setDialogueOpen] = useState(true);
   const [newPaletteName, setNewPaletteName] = useState('');
 
@@ -35,7 +35,7 @@ export default function PaletteMetaForm({ savePalette, palettes }) {
   };
 
   return (
-    <Dialog open={dialogueOpen} onClose={handleDialogueClose}>
+    <Dialog open={dialogueOpen} onClose={hideForm}>
       <DialogTitle>Name your palette</DialogTitle>
       <ValidatorForm
         instantValidate={false}
@@ -61,7 +61,7 @@ export default function PaletteMetaForm({ savePalette, palettes }) {
           />
         </DialogContent>
         <DialogActions sx={{ paddingRight: '20px' }}>
-          <Button onClick={handleDialogueClose} sx={{ paddingRight: '12px' }}>
+          <Button onClick={hideForm} sx={{ paddingRight: '12px' }}>
             Cancel
           </Button>
           <Button variant='contained' color='primary' type='submit'>

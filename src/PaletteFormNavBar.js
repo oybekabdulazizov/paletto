@@ -51,6 +51,8 @@ export default function PaletteFormNavBar({
 
   const showForm = () => setPaletteFormOpen(true);
 
+  const hideForm = () => setPaletteFormOpen(false);
+
   const handleDrawerOpen = () => openDrawer();
 
   return (
@@ -82,7 +84,11 @@ export default function PaletteFormNavBar({
           </Button>
         </div>
         {paletteFormOpen && (
-          <PaletteMetaForm savePalette={savePalette} palettes={palettes} />
+          <PaletteMetaForm
+            savePalette={savePalette}
+            palettes={palettes}
+            hideForm={hideForm}
+          />
         )}
       </AppBar>
     </>
