@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
+import sizes from './sizes';
+
 export default styled('div')(() => ({
   display: 'flex',
-  alignItems: 'baseline',
+  alignItems: 'center',
   justifyContent: 'flex-start',
   height: '6vh',
   '.logo': {
@@ -18,29 +20,38 @@ export default styled('div')(() => ({
       textDecoration: 'none',
     },
   },
+  '.slider-container span': {
+    margin: '0 10px',
+  },
   '.slider': {
     width: '20em',
-    margin: '0 15px',
+    margin: '0 5px',
     display: 'inline-block',
-    '& .rc-slider-track': {
+    '.rc-slider-track': {
       backgroundColor: 'transparent',
       outline: 'none',
     },
-    '& .rc-slider-rail': {
+    '.rc-slider-rail': {
       height: '8px',
       backgroundColor: 'lightgray',
     },
-    '& .rc-slider-handle': {
+    '.rc-slider-handle': {
       height: '1em',
       width: '1em',
     },
-    '& .rc-slider-handle, .rc-slider-handle:active, .rc-slider-handle:hover, .rc-slider-handle:focus':
+    '.rc-slider-handle, .rc-slider-handle:active, .rc-slider-handle:hover, .rc-slider-handle:focus':
       {
         backgroundColor: 'darkgreen',
         outline: 'none',
         border: '2px solid darkgreen',
         boxShadow: 'none',
       },
+    [sizes.down('sm')]: {
+      width: '16em',
+    },
+    [sizes.down('xs')]: {
+      width: '10em',
+    },
   },
   '.select-container': {
     marginLeft: 'auto',
