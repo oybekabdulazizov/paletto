@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
 import seedPalette from './data/seedPalette';
@@ -8,9 +8,19 @@ import SingleColourPalette from './SingleColourPalette';
 import NewPaletteForm from './NewPaletteForm';
 
 export default function App() {
-  const [palettes, setPalettes] = useState([...seedPalette]);
+  const [palettes, setPalettes] = useState(
+    JSON.parse(window.localStorage.getItem('palettes')) || seedPalette
+  );
 
   const savePalette = (newPalette) => setPalettes([...palettes, newPalette]);
+
+  const syncPalette = useCallback(() => {
+    window.localStorage.setItem('palettes', JSON.stringify(palettes));
+  }, [palettes]);
+
+  useEffect(() => {
+    syncPalette();
+  }, [syncPalette]);
 
   return (
     <Routes>
