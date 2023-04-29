@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -27,8 +26,41 @@ import ColourPickerForm from './ColourPickerForm';
 
 const drawerWidth = 360;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
+const NewPaletteFormWithStyles = styled('div', {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  display: 'flex',
+  '.drawer-header': {
+    display: 'flex',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-start',
+  },
+  '.drawer': {
+    width: drawerWidth,
+    flexShrink: 0,
+    '& .MuiDrawer-paper': {
+      width: drawerWidth,
+      boxSizing: 'border-box',
+    },
+  },
+  '.drawer-content-container': {
+    width: '90%',
+    height: '100%',
+    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  '.btns': {
+    width: '100%',
+  },
+  '.btn': {
+    width: '50%',
+    fontSize: '0.8em',
+  },
+  '.main': {
     height: 'calc(100vh - 56px)',
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -44,17 +76,37 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
       }),
       marginLeft: 0,
     }),
-  })
-);
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-start',
+  },
 }));
+
+// const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+//   ({ theme, open }) => ({
+//     height: 'calc(100vh - 56px)',
+//     flexGrow: 1,
+//     padding: theme.spacing(3),
+//     transition: theme.transitions.create('margin', {
+//       easing: theme.transitions.easing.sharp,
+//       duration: theme.transitions.duration.leavingScreen,
+//     }),
+//     marginLeft: `-${drawerWidth}px`,
+//     ...(open && {
+//       transition: theme.transitions.create('margin', {
+//         easing: theme.transitions.easing.easeOut,
+//         duration: theme.transitions.duration.enteringScreen,
+//       }),
+//       marginLeft: 0,
+//     }),
+//   })
+// );
+
+// const DrawerHeader = styled('div')(({ theme }) => ({
+//   display: 'flex',
+//   alignItems: 'center',
+//   padding: theme.spacing(0, 1),
+//   // necessary for content to be below app bar
+//   ...theme.mixins.toolbar,
+//   justifyContent: 'flex-start',
+// }));
 
 const getRandomColour = (palettes) => {
   const randomPalette = palettes[Math.floor(Math.random() * palettes.length)];
@@ -145,59 +197,53 @@ export default function NewPaletteForm({ palettes, savePalette }) {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <NewPaletteFormWithStyles open={open}>
       <PaletteFormNavBar
         open={open}
         openDrawer={handleDrawerOpen}
         savePalette={handleSavePalette}
         palettes={palettes}
       />
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant='persistent'
-        anchor='left'
-        open={open}
-      >
-        <DrawerHeader>
+      <Drawer className='drawer' variant='persistent' anchor='left' open={open}>
+        <div className='drawer-header'>
           <IconButton onClick={handleDrawerClose} sx={{ ml: 1 }}>
             <ChevronLeftIcon />
           </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <Typography variant='h5'>Design Your Palette</Typography>
-        <div>
-          <Button
-            variant='contained'
-            color='secondary'
-            onClick={handleClearPalette}
-          >
-            Clear Palette
-          </Button>
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={handleAddRandomColour}
-            disabled={paletteFull}
-          >
-            Random Colour
-          </Button>
         </div>
-        <ColourPickerForm
-          addColour={handleAddColour}
-          colours={colours}
-          paletteFull={paletteFull}
-          randomColour={getRandomColour(palettes).colour}
-        />
+        <Divider />
+        <div className='drawer-content-container'>
+          <Typography variant='h5' gutterBottom>
+            Design Your Palette
+          </Typography>
+          <div className='btns'>
+            <Button
+              variant='contained'
+              color='secondary'
+              className='btn'
+              onClick={handleClearPalette}
+            >
+              Clear Palette
+            </Button>
+            <Button
+              variant='contained'
+              color='primary'
+              className='btn'
+              onClick={handleAddRandomColour}
+              disabled={paletteFull}
+            >
+              Random Colour
+            </Button>
+          </div>
+          <ColourPickerForm
+            addColour={handleAddColour}
+            colours={colours}
+            paletteFull={paletteFull}
+            randomColour={getRandomColour(palettes).colour}
+          />
+        </div>
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
+      <div className='main'>
+        <div className='drawer-header' />
         <DndContext
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
@@ -215,7 +261,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
             ))}
           </SortableContext>
         </DndContext>
-      </Main>
-    </Box>
+      </div>
+    </NewPaletteFormWithStyles>
   );
 }
