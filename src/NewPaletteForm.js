@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -23,90 +22,7 @@ import {
 import DraggableColourBox from './DraggableColourBox';
 import NewPaletteFormNavBar from './NewPaletteFormNavBar';
 import ColourPickerForm from './ColourPickerForm';
-
-const drawerWidth = 360;
-
-const NewPaletteFormWithStyles = styled('div', {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  display: 'flex',
-  '.drawer-header': {
-    display: 'flex',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
-  },
-  '.drawer': {
-    width: drawerWidth,
-    flexShrink: 0,
-    '& .MuiDrawer-paper': {
-      width: drawerWidth,
-      boxSizing: 'border-box',
-    },
-  },
-  '.drawer-content-container': {
-    width: '90%',
-    height: '100%',
-    margin: '0 auto',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  '.btns': {
-    width: '100%',
-  },
-  '.btn': {
-    width: '50%',
-    fontSize: '0.8em',
-  },
-  '.main': {
-    height: 'calc(100vh - 56px)',
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  },
-}));
-
-// const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-//   ({ theme, open }) => ({
-//     height: 'calc(100vh - 56px)',
-//     flexGrow: 1,
-//     padding: theme.spacing(3),
-//     transition: theme.transitions.create('margin', {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.leavingScreen,
-//     }),
-//     marginLeft: `-${drawerWidth}px`,
-//     ...(open && {
-//       transition: theme.transitions.create('margin', {
-//         easing: theme.transitions.easing.easeOut,
-//         duration: theme.transitions.duration.enteringScreen,
-//       }),
-//       marginLeft: 0,
-//     }),
-//   })
-// );
-
-// const DrawerHeader = styled('div')(({ theme }) => ({
-//   display: 'flex',
-//   alignItems: 'center',
-//   padding: theme.spacing(0, 1),
-//   // necessary for content to be below app bar
-//   ...theme.mixins.toolbar,
-//   justifyContent: 'flex-start',
-// }));
+import NewPaletteFormWithStyles from './styles/NewPaletteFormWithStyles';
 
 const getRandomColour = (palettes) => {
   const randomPalette = palettes[Math.floor(Math.random() * palettes.length)];
