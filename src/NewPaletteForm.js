@@ -21,7 +21,7 @@ import {
 } from '@dnd-kit/sortable';
 
 import DraggableColourBox from './DraggableColourBox';
-import PaletteFormNavBar from './PaletteFormNavBar';
+import NewPaletteFormNavBar from './NewPaletteFormNavBar';
 import ColourPickerForm from './ColourPickerForm';
 
 const drawerWidth = 360;
@@ -199,7 +199,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
 
   return (
     <NewPaletteFormWithStyles open={open}>
-      <PaletteFormNavBar
+      <NewPaletteFormNavBar
         open={open}
         openDrawer={handleDrawerOpen}
         savePalette={handleSavePalette}

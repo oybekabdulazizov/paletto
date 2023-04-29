@@ -41,7 +41,7 @@ const AppBar = styled(MuiAppBar, {
   },
 }));
 
-export default function PaletteFormNavBar({
+export default function NewPaletteFormNavBar({
   open,
   openDrawer,
   savePalette,
