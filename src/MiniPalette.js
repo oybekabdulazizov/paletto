@@ -1,14 +1,27 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import MiniPaletteWithStyles from './styles/MiniPaletteWithStyles';
 
-export default function MiniPalette({ id, paletteName, emoji, colours }) {
+export default function MiniPalette({
+  id,
+  paletteName,
+  emoji,
+  colours,
+  deletePalette,
+}) {
   const history = useNavigate();
+
   function handleGoToPalette(e) {
     e.preventDefault();
     history(`/palette/${id}`);
   }
+
+  const handleDeletePalette = (e) => {
+    e.stopPropagation();
+    deletePalette(id);
+  };
 
   const miniColourBoxes = colours.map((c) => (
     <div
@@ -20,6 +33,7 @@ export default function MiniPalette({ id, paletteName, emoji, colours }) {
 
   return (
     <MiniPaletteWithStyles onClick={handleGoToPalette}>
+      <DeleteIcon className='delete-icon' onClick={handleDeletePalette} />
       <div className='colours'>{miniColourBoxes}</div>
       <h5 className='title'>
         {paletteName} <span className='emoji'>{emoji}</span>

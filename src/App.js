@@ -14,6 +14,9 @@ export default function App() {
 
   const savePalette = (newPalette) => setPalettes([...palettes, newPalette]);
 
+  const deletePalette = (id) =>
+    setPalettes(palettes.filter((palette) => palette.id !== id));
+
   const syncPalette = useCallback(() => {
     window.localStorage.setItem('palettes', JSON.stringify(palettes));
   }, [palettes]);
@@ -31,7 +34,13 @@ export default function App() {
           <NewPaletteForm savePalette={savePalette} palettes={palettes} />
         }
       />
-      <Route exact path='/' element={<PaletteList palettes={palettes} />} />
+      <Route
+        exact
+        path='/'
+        element={
+          <PaletteList palettes={palettes} deletePalette={deletePalette} />
+        }
+      />
       <Route
         exact
         path='/palette/:id'

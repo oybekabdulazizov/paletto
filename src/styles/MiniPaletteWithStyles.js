@@ -7,8 +7,9 @@ export default styled('div')(({ theme }) => ({
   padding: '0.5em',
   position: 'relative',
   overflow: 'hidden',
-  '&:hover': {
-    cursor: 'pointer',
+  cursor: 'pointer',
+  '&:hover .delete-icon': {
+    opacity: '1',
   },
   '& .colours': {
     backgroundColor: 'white',
@@ -37,5 +38,18 @@ export default styled('div')(({ theme }) => ({
   '& .emoji': {
     marginLeft: '0.5em',
     fontSize: '1.4em',
+  },
+  '.delete-icon': {
+    position: 'absolute',
+    zIndex: '2',
+    color: 'white',
+    backgroundColor: '#eb3d30',
+    width: '25px',
+    height: '25px',
+    right: '0',
+    top: '0',
+    padding: '5px',
+    opacity: '0',
+    transition: 'all 0.2s ease-in-out',
   },
 }));

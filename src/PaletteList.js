@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import MiniPalette from './MiniPalette';
 import PaletteListWithStyles from './styles/PaletteListWithStyles';
 
-export default function PaletteList({ palettes }) {
+export default function PaletteList({ palettes, deletePalette }) {
   return (
     <PaletteListWithStyles>
       <div className='container'>
@@ -15,7 +15,7 @@ export default function PaletteList({ palettes }) {
         <div className='palettes'>
           {palettes.map((palette) => (
             <div key={palette.id}>
-              <MiniPalette {...palette} />
+              <MiniPalette {...palette} deletePalette={deletePalette} />
             </div>
           ))}
         </div>
