@@ -3,43 +3,12 @@ import { Link } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
-import MuiAppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import { Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 import PaletteMetaForm from './PaletteMetaForm';
 
-const drawerWidth = 360;
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  position: 'fixed',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-  backgroundColor: 'white',
-  color: 'black',
-  '.nav-btns': {
-    margin: '0 1em',
-    display: 'flex',
-    flexDirection: 'row',
-  },
-}));
+import NewPaletteFormNavBarWithStyles from './styles/NewPaletteFormNavBarWithStyles';
 
 export default function NewPaletteFormNavBar({
   open,
@@ -58,7 +27,7 @@ export default function NewPaletteFormNavBar({
   return (
     <>
       <CssBaseline />
-      <AppBar open={open}>
+      <NewPaletteFormNavBarWithStyles open={open}>
         <Toolbar className='toolbar'>
           <IconButton
             color='inherit'
@@ -90,7 +59,7 @@ export default function NewPaletteFormNavBar({
             hideForm={hideForm}
           />
         )}
-      </AppBar>
+      </NewPaletteFormNavBarWithStyles>
     </>
   );
 }
