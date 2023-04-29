@@ -165,10 +165,11 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     }
   };
 
-  const handleSavePalette = (newPaletteName) => {
+  const handleSavePalette = (newPaletteName, emoji) => {
     savePalette({
       paletteName: newPaletteName,
       id: newPaletteName.toLowerCase().replace(/ /g, '-'),
+      emoji: emoji,
       colours,
     });
     history('/');
