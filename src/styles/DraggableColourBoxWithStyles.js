@@ -1,13 +1,23 @@
 import styled from 'styled-components';
 
+import sizes from './sizes';
+
 const DraggableColourBoxWithStyles = styled('div')(() => ({
-  width: '20%',
-  height: '25%',
+  width: '25%',
+  height: '20%',
   margin: '0 auto',
   display: 'inline-block',
   position: 'relative',
   cursor: 'pointer',
   marginBottom: '-7px',
+  [sizes.down('lg')]: {
+    width: '50%',
+    height: '10%',
+  },
+  [sizes.down('sm')]: {
+    width: '100%',
+    height: '5%',
+  },
   '.box-content': {
     position: 'absolute',
     width: '100%',

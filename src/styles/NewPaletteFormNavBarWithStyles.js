@@ -6,6 +6,7 @@ const drawerWidth = 360;
 const NewPaletteFormNavBarWithStyles = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
+  height: '64px',
   position: 'fixed',
   display: 'flex',
   flexDirection: 'row',
