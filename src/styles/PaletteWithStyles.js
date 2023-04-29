@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import sizes from './sizes';
+
 export default styled('div')(() => ({
   height: '100vh',
   display: 'flex',
@@ -37,6 +39,18 @@ export default styled('div')(() => ({
       textTransform: 'uppercase',
       textDecoration: 'none',
       color: 'white',
+    },
+    [sizes.down('lg')]: {
+      width: '25%',
+      height: '33.33333%',
+    },
+    [sizes.down('md')]: {
+      width: '50%',
+      height: '20%',
+    },
+    [sizes.down('xs')]: {
+      width: '100%',
+      height: '10%',
     },
   },
 }));

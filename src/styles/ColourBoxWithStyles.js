@@ -15,7 +15,7 @@ export default styled('div')(({ showFullPalette }) => ({
   },
   [sizes.down('lg')]: {
     width: '25%',
-    height: showFullPalette && '20%',
+    height: showFullPalette ? '20%' : '33.33333%',
   },
   [sizes.down('md')]: {
     width: '50%',
