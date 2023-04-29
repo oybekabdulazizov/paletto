@@ -26,7 +26,8 @@ export default function ColourBox({
   return (
     <CopyToClipboard text={background} onCopy={changeCopyState}>
       <ColourBoxWithStyles
-        style={{ background, height: showFullPalette ? '25%' : '50%' }}
+        showFullPalette={showFullPalette}
+        style={{ background }}
       >
         <div
           className={`copy-overlay ${copied && `show`}`}

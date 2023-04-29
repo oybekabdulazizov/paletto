@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import sizes from './sizes';
 
-export default styled('div')(() => ({
+export default styled('div')(({ showFullPalette }) => ({
   width: '20%',
+  height: showFullPalette ? '25%' : '50%',
   margin: '0 auto',
   display: 'inline-block',
   position: 'relative',
@@ -10,6 +12,18 @@ export default styled('div')(() => ({
   '&:hover .copy-btn': {
     opacity: '1',
     transition: '0.4s ease',
+  },
+  [sizes.down('lg')]: {
+    width: '25%',
+    height: showFullPalette && '20%',
+  },
+  [sizes.down('md')]: {
+    width: '50%',
+    height: showFullPalette ? '10%' : '20%',
+  },
+  [sizes.down('xs')]: {
+    width: '100%',
+    height: showFullPalette ? '5%' : '10%',
   },
   '& .copy-btn': {
     border: 'none',
@@ -67,7 +81,7 @@ export default styled('div')(() => ({
     '&.show': {
       transition: 'transform 0.5s ease-in-out',
       opacity: '1',
-      transform: 'scale(20)',
+      transform: 'scale(50)',
       zIndex: '10',
       position: 'absolute',
     },
@@ -103,6 +117,9 @@ export default styled('div')(() => ({
     background: 'rgba(255, 255, 255, 0.3)',
     textAlign: 'center',
     textTransform: 'uppercase',
+    [sizes.down('xs')]: {
+      fontSize: '3em',
+    },
   },
   '.copy-msg-bg': {
     margin: '10px 0 0 0',
