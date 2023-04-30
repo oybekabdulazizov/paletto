@@ -23,15 +23,15 @@ import DraggableColourBox from './DraggableColourBox';
 import NewPaletteFormNavBar from './NewPaletteFormNavBar';
 import ColourPickerForm from './ColourPickerForm';
 import NewPaletteFormWithStyles from './styles/NewPaletteFormWithStyles';
+import coloursInventory from './data/coloursInventory';
 
-const getRandomColour = (palettes) => {
-  const randomPalette = palettes[Math.floor(Math.random() * palettes.length)];
-  return randomPalette.colours[
-    Math.floor(Math.random() * randomPalette.colours.length)
-  ];
+const getRandomColour = (colours) => {
+  let randomColour = colours[Math.floor(Math.random() * colours.length)];
+  return randomColour;
 };
 
 export default function NewPaletteForm({ palettes, savePalette }) {
+  getRandomColour(coloursInventory);
   const [open, setOpen] = useState(true);
   const [colours, setColours] = useState([]);
   let paletteFull = colours.length >= 20;
@@ -67,7 +67,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
   const handleAddRandomColour = () => {
     let randomColour = {};
     do {
-      randomColour = getRandomColour(palettes);
+      randomColour = getRandomColour(coloursInventory);
     } while (colours.find((c) => c.name === randomColour.name));
 
     if (!paletteFull) {
@@ -75,7 +75,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
         ...colours,
         {
           name: randomColour.name,
-          id: randomColour.name.toLowerCase().replace(/ /g, '-'),
+          id: randomColour.id,
           colour: randomColour.colour,
         },
       ]);
@@ -102,14 +102,14 @@ export default function NewPaletteForm({ palettes, savePalette }) {
   const handleDragEnd = (e) => {
     const { active, over } = e;
     if (active.id !== over.id) {
-      setColours((colours) => {
-        const activeColourIndex = colours.indexOf(
+      setColours(() => {
+        const activeColouri = colours.iOf(
           colours.find((c) => c.id === active.id)
         );
-        const overColourIndex = colours.indexOf(
+        const overColourIndex = colours.iOf(
           colours.find((c) => c.id === over.id)
         );
-        return arrayMove(colours, activeColourIndex, overColourIndex);
+        return arrayMove(colours, activeColouri, overColourIndex);
       });
     }
   };
@@ -157,7 +157,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
             addColour={handleAddColour}
             colours={colours}
             paletteFull={paletteFull}
-            randomColour={getRandomColour(palettes).colour}
+            randomColour={getRandomColour(coloursInventory).colour}
           />
         </div>
       </Drawer>
