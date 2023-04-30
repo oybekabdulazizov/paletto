@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 
 import sizes from './sizes';
+import bg from '../images/bg.svg';
 
 export default styled('div')(() => ({
-  backgroundColor: 'blue',
-  height: '100vh',
+  backgroundColor: '#1504B1',
+  backgroundImage: `url(${bg})`,
+  backgroundAttachment: 'fixed',
+  minHeight: '100vh',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'flex-start',
   '& .container': {
     width: '50%',
+    marginBottom: '2em',
     display: 'flex',
     alignItems: 'flex-start',
     flexDirection: 'column',
