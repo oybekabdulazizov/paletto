@@ -9,7 +9,7 @@ export default function PaletteList({ palettes, deletePalette }) {
     <PaletteListWithStyles>
       <div className='container'>
         <nav className='nav'>
-          <h1 className='title'>Paletto Colours</h1>
+          <h1 className='nav-title'>Paletto Colours</h1>
           <Link to='/palette/new'>Create Palette</Link>
         </nav>
         <div className='palettes'>
