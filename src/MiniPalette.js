@@ -9,7 +9,7 @@ export default function MiniPalette({
   paletteName,
   emoji,
   colours,
-  deletePalette,
+  showDeleteConfirmation,
 }) {
   const history = useNavigate();
 
@@ -18,9 +18,9 @@ export default function MiniPalette({
     history(`/palette/${id}`);
   }
 
-  const handleDeletePalette = (e) => {
+  const handleShowDeleteConfirmation = (e) => {
     e.stopPropagation();
-    deletePalette(id);
+    showDeleteConfirmation(id);
   };
 
   const miniColourBoxes = colours.map((c) => (
@@ -33,7 +33,10 @@ export default function MiniPalette({
 
   return (
     <MiniPaletteWithStyles onClick={handleGoToPalette}>
-      <DeleteIcon className='delete-icon' onClick={handleDeletePalette} />
+      <DeleteIcon
+        className='delete-icon'
+        onClick={handleShowDeleteConfirmation}
+      />
       <div className='colours'>{miniColourBoxes}</div>
       <h5 className='title'>
         {paletteName} <span className='emoji'>{emoji}</span>
