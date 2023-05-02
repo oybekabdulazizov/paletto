@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import sizes from './sizes';
 
 export default styled('div')(({ showFullPalette }) => ({
@@ -8,7 +9,7 @@ export default styled('div')(({ showFullPalette }) => ({
   display: 'inline-block',
   position: 'relative',
   cursor: 'pointer',
-  marginBottom: '-4px',
+  marginBottom: '-5px',
   '&:hover .copy-btn': {
     opacity: '1',
     transition: '0.4s ease',
@@ -25,7 +26,7 @@ export default styled('div')(({ showFullPalette }) => ({
     width: '100%',
     height: showFullPalette ? '5%' : '10%',
   },
-  '& .copy-btn': {
+  '.copy-btn': {
     border: 'none',
     outline: 'none',
     fontSize: '1em',
@@ -76,10 +77,10 @@ export default styled('div')(({ showFullPalette }) => ({
     position: 'absolute',
     width: '100%',
     height: '100%',
-    transition: 'transform 0.5s ease-in-out',
+    transition: 'transform 1s ease-in-out',
     transform: 'scale(0.1)',
     '&.show': {
-      transition: 'transform 0.5s ease-in-out',
+      transition: 'transform 1s ease-in-out',
       opacity: '1',
       transform: 'scale(50)',
       zIndex: '10',

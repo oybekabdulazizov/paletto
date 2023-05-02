@@ -11,21 +11,21 @@ export default styled('div')(({ theme }) => ({
   '&:hover .delete-icon': {
     opacity: '1',
   },
-  '& .colours': {
+  '.colours': {
     backgroundColor: 'white',
     height: '140px',
     width: '100%',
     borderRadius: '5px',
     overflow: 'hidden',
   },
-  '& .miniColour': {
+  '.miniColour': {
     height: '25%',
     width: '20%',
     display: 'inline-block',
     margin: '0 auto -4.5px auto',
     position: 'relative',
   },
-  '& .title': {
+  '.title': {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -35,7 +35,7 @@ export default styled('div')(({ theme }) => ({
     fontSize: '1em',
     position: 'relative',
   },
-  '& .emoji': {
+  '.emoji': {
     marginLeft: '0.5em',
     fontSize: '1.4em',
   },

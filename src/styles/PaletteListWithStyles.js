@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import sizes from './sizes';
 import bg from '../images/bg.svg';
+import sizes from './sizes';
 
 export default styled('div')(() => ({
   backgroundColor: '#1504B1',
@@ -11,7 +11,7 @@ export default styled('div')(() => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'flex-start',
-  '& .container': {
+  '.container': {
     width: '50%',
     marginBottom: '2em',
     display: 'flex',
@@ -60,7 +60,7 @@ export default styled('div')(() => ({
       margin: '1em 0',
     },
   },
-  '& .palettes': {
+  '.palettes': {
     boxSizing: 'border-box',
     width: '100%',
     display: 'grid',

@@ -6,8 +6,8 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import IconButton from '@mui/material/IconButton';
 import { Button } from '@mui/material';
 import { Typography } from '@mui/material';
-import PaletteMetaForm from './PaletteMetaForm';
 
+import PaletteMetaForm from './PaletteMetaForm';
 import NewPaletteFormNavBarWithStyles from './styles/NewPaletteFormNavBarWithStyles';
 
 export default function NewPaletteFormNavBar({

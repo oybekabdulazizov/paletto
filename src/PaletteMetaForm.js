@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Button } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Picker from '@emoji-mart/react';
 import data from '@emoji-mart/data';
 
@@ -40,7 +40,12 @@ export default function PaletteMetaForm({ savePalette, palettes, hideForm }) {
     <>
       <Dialog open={emojiPickerOpen} onClose={hideForm}>
         <DialogTitle variant='h5'>Pick a palette emoji</DialogTitle>
-        <Picker data={data} onEmojiSelect={handleSavePalette} theme='light' />
+        <Picker
+          data={data}
+          onEmojiSelect={handleSavePalette}
+          theme='light'
+          autoFocus
+        />
       </Dialog>
       <Dialog open={dialogueOpen} onClose={hideForm}>
         <DialogTitle>Name your palette</DialogTitle>
@@ -57,6 +62,7 @@ export default function PaletteMetaForm({ savePalette, palettes, hideForm }) {
               label='Palette Name'
               name='newPaletteName'
               fullWidth
+              autoFocus
               margin='normal'
               value={newPaletteName}
               onChange={handleNewPaletteNameChange}

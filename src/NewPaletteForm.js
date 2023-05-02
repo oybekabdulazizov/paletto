@@ -22,8 +22,8 @@ import {
 import DraggableColourBox from './DraggableColourBox';
 import NewPaletteFormNavBar from './NewPaletteFormNavBar';
 import ColourPickerForm from './ColourPickerForm';
-import NewPaletteFormWithStyles from './styles/NewPaletteFormWithStyles';
 import coloursInventory from './data/coloursInventory';
+import NewPaletteFormWithStyles from './styles/NewPaletteFormWithStyles';
 
 const getRandomColour = () => {
   let randomColour =
@@ -65,11 +65,14 @@ export default function NewPaletteForm({ palettes, savePalette }) {
   };
 
   const handleAddRandomColour = () => {
+    function duplicateExists(colourId) {
+      return colours.some((c) => c.id === colourId);
+    }
     let randomColour;
     let isDuplicateColour = true;
     while (isDuplicateColour) {
       randomColour = getRandomColour();
-      isDuplicateColour = colours.some((c) => c.id === randomColour.id);
+      isDuplicateColour = duplicateExists(randomColour.id);
     }
 
     if (!paletteFull) {
@@ -127,8 +130,8 @@ export default function NewPaletteForm({ palettes, savePalette }) {
       />
       <Drawer className='drawer' variant='persistent' anchor='left' open={open}>
         <div className='drawer-header'>
-          <IconButton onClick={handleDrawerClose} sx={{ ml: 1 }}>
-            <ChevronLeftIcon />
+          <IconButton onClick={handleDrawerClose} className='chevron-icon-btn'>
+            <ChevronLeftIcon sx={{ fontSize: '1.1em' }} />
           </IconButton>
         </div>
         <Divider />

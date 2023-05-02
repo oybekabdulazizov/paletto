@@ -7,7 +7,8 @@ import PaletteList from './PaletteList';
 import Palette from './Palette';
 import SingleColourPalette from './SingleColourPalette';
 import NewPaletteForm from './NewPaletteForm';
-import Page from './Page';
+
+import './styles/App.css';
 
 export default function App() {
   const [palettes, setPalettes] = useState(
@@ -30,63 +31,68 @@ export default function App() {
   }, [syncPalette]);
 
   return (
-    <SwitchTransition>
-      <CSSTransition
-        key={location.pathname}
-        classNames='page'
-        timeout={300}
-        unmountOnExit
-      >
-        <Routes location={location}>
-          <Route
-            exact
-            path='/palette/new'
-            element={
-              <Page>
-                <NewPaletteForm savePalette={savePalette} palettes={palettes} />
-              </Page>
-            }
-          />
-          <Route
-            exact
-            path='/'
-            element={
-              <Page>
-                <PaletteList
-                  palettes={palettes}
-                  deletePalette={deletePalette}
-                />
-              </Page>
-            }
-          />
-          <Route
-            exact
-            path='/palette/:id'
-            element={
-              <Page>
-                <Palette palettes={palettes} />
-              </Page>
-            }
-          />
-          <Route
-            exact
-            path='/palette/:paletteId/:colourId'
-            element={
-              <Page>
-                <SingleColourPalette palettes={palettes} />
-              </Page>
-            }
-          />
-          <Route
-            path='/*'
-            element={
-              <Page>
-                <Navigate to='/' replace />
-              </Page>
-            }
-          />
-        </Routes>
-      </CSSTransition>
-    </SwitchTransition>
+    <div className='App'>
+      <SwitchTransition>
+        <CSSTransition
+          key={location.pathname}
+          classNames='page'
+          timeout={300}
+          unmountOnExit
+        >
+          <Routes location={location}>
+            <Route
+              exact
+              path='/palette/new'
+              element={
+                <section className='page' style={{ position: 'fixed' }}>
+                  <NewPaletteForm
+                    savePalette={savePalette}
+                    palettes={palettes}
+                  />
+                </section>
+              }
+            />
+            <Route
+              exact
+              path='/'
+              element={
+                <section className='page'>
+                  <PaletteList
+                    palettes={palettes}
+                    deletePalette={deletePalette}
+                  />
+                </section>
+              }
+            />
+            <Route
+              exact
+              path='/palette/:id'
+              element={
+                <section className='page' style={{ position: 'fixed' }}>
+                  <Palette palettes={palettes} />
+                </section>
+              }
+            />
+            <Route
+              exact
+              path='/palette/:paletteId/:colourId'
+              element={
+                <section className='page' style={{ position: 'fixed' }}>
+                  <SingleColourPalette palettes={palettes} />
+                </section>
+              }
+            />
+            <Route
+              path='/*'
+              element={
+                <section className='page'>
+                  <Navigate to='/' replace />
+                </section>
+              }
+            />
+          </Routes>
+        </CSSTransition>
+      </SwitchTransition>
+    </div>
   );
 }

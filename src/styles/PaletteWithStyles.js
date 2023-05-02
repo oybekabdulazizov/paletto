@@ -19,7 +19,7 @@ export default styled('div')(() => ({
     cursor: 'pointer',
     marginBottom: '-4px',
     backgroundColor: 'black',
-    '& a': {
+    a: {
       border: 'none',
       outline: 'none',
       fontSize: '1em',

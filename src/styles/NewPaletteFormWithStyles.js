@@ -6,12 +6,6 @@ const NewPaletteFormWithStyles = styled('div', {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ open }) => ({
   display: 'flex',
-  '.drawer-header': {
-    display: 'flex',
-    padding: '0 8px',
-    minHeight: '64px',
-    justifyContent: 'flex-start',
-  },
   '.drawer': {
     width: drawerWidth,
     flexShrink: 0,
@@ -19,6 +13,18 @@ const NewPaletteFormWithStyles = styled('div', {
       width: drawerWidth,
       boxSizing: 'border-box',
     },
+  },
+  '.drawer-header': {
+    display: 'flex',
+    padding: '0 8px',
+    minHeight: '64px',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  '.chevron-icon-btn': {
+    marginLeft: '8px',
+    width: '40px',
+    height: '40px',
   },
   '.drawer-content-container': {
     width: '90%',
