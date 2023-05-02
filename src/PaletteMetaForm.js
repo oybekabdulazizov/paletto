@@ -33,6 +33,7 @@ export default function PaletteMetaForm({ savePalette, palettes, hideForm }) {
   const handleSavePalette = (emoji) => {
     savePalette(newPaletteName, emoji.native);
     setNewPaletteName('');
+    setEmojiPickerOpen(false);
   };
 
   return (
