@@ -25,13 +25,13 @@ import ColourPickerForm from './ColourPickerForm';
 import NewPaletteFormWithStyles from './styles/NewPaletteFormWithStyles';
 import coloursInventory from './data/coloursInventory';
 
-const getRandomColour = (colours) => {
-  let randomColour = colours[Math.floor(Math.random() * colours.length)];
+const getRandomColour = () => {
+  let randomColour =
+    coloursInventory[Math.floor(Math.random() * coloursInventory.length)];
   return randomColour;
 };
 
 export default function NewPaletteForm({ palettes, savePalette }) {
-  getRandomColour(coloursInventory);
   const [open, setOpen] = useState(true);
   const [colours, setColours] = useState([]);
   let paletteFull = colours.length >= 20;
@@ -65,10 +65,12 @@ export default function NewPaletteForm({ palettes, savePalette }) {
   };
 
   const handleAddRandomColour = () => {
-    let randomColour = {};
-    do {
-      randomColour = getRandomColour(coloursInventory);
-    } while (colours.find((c) => c.name === randomColour.name));
+    let randomColour;
+    let isDuplicateColour = true;
+    while (isDuplicateColour) {
+      randomColour = getRandomColour();
+      isDuplicateColour = colours.some((c) => c.id === randomColour.id);
+    }
 
     if (!paletteFull) {
       setColours([
@@ -157,7 +159,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
             addColour={handleAddColour}
             colours={colours}
             paletteFull={paletteFull}
-            randomColour={getRandomColour(coloursInventory).colour}
+            randomColour={getRandomColour().colour}
           />
         </div>
       </Drawer>
