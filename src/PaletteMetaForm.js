@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Button } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
@@ -8,38 +8,17 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Picker from '@emoji-mart/react';
 import data from '@emoji-mart/data';
+import usePaletteMetaFormState from './hooks/usePaletteMetaFormState';
 
 export default function PaletteMetaForm({ savePalette, palettes, hideForm }) {
-  const [dialogueOpen, setDialogueOpen] = useState(true);
-  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
-  const [newPaletteName, setNewPaletteName] = useState('');
-
-  useEffect(() => {
-    ValidatorForm.addValidationRule('isPaletteNameUnique', (value) =>
-      palettes.every((p) => p.paletteName.toLowerCase() !== value.toLowerCase())
-    );
-
-    ValidatorForm.addValidationRule(
-      'isPaletteNameValid',
-      (value) => value.toLowerCase() !== 'create-new-palette'
-    );
-  }, [palettes]);
-
-  const showEmojiPicker = () => {
-    setDialogueOpen(false);
-    setEmojiPickerOpen(true);
-  };
-
-  const handleNewPaletteNameChange = (e) => {
-    e.preventDefault();
-    setNewPaletteName(e.target.value);
-  };
-
-  const handleSavePalette = (emoji) => {
-    savePalette(newPaletteName, emoji.native);
-    setNewPaletteName('');
-    setEmojiPickerOpen(false);
-  };
+  const {
+    dialogueOpen,
+    emojiPickerOpen,
+    showEmojiPicker,
+    handleNewPaletteNameChange,
+    handleSavePalette,
+    newPaletteName,
+  } = usePaletteMetaFormState(palettes, savePalette);
 
   return (
     <>
