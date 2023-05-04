@@ -27,7 +27,7 @@ export default function App() {
           <Routes location={location}>
             <Route
               exact
-              path='/palette/new'
+              path='/palette/create-new-palette'
               element={
                 <section className='page' style={{ position: 'fixed' }}>
                   <NewPaletteForm

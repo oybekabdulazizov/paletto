@@ -42,7 +42,7 @@ export default function PaletteList({ palettes, deletePalette }) {
       <div className='container'>
         <nav className='nav'>
           <h1 className='nav-title'>Paletto Colours</h1>
-          <Link to='/palette/new'>Create Palette</Link>
+          <Link to='/palette/create-new-palette'>Create Palette</Link>
         </nav>
         <TransitionGroup className='palettes'>
           {palettes.map((palette) => (

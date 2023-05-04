@@ -18,6 +18,11 @@ export default function PaletteMetaForm({ savePalette, palettes, hideForm }) {
     ValidatorForm.addValidationRule('isPaletteNameUnique', (value) =>
       palettes.every((p) => p.paletteName.toLowerCase() !== value.toLowerCase())
     );
+
+    ValidatorForm.addValidationRule(
+      'isPaletteNameValid',
+      (value) => value.toLowerCase() !== 'create-new-palette'
+    );
   }, [palettes]);
 
   const showEmojiPicker = () => {
@@ -66,10 +71,15 @@ export default function PaletteMetaForm({ savePalette, palettes, hideForm }) {
               margin='normal'
               value={newPaletteName}
               onChange={handleNewPaletteNameChange}
-              validators={['required', 'isPaletteNameUnique']}
+              validators={[
+                'required',
+                'isPaletteNameUnique',
+                'isPaletteNameValid',
+              ]}
               errorMessages={[
                 'Palette Name is required',
                 'Palette Name Already In Use',
+                'Palette Name is invalid',
               ]}
             />
           </DialogContent>
