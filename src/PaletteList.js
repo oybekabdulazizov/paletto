@@ -17,25 +17,15 @@ import {
 
 import MiniPalette from './MiniPalette';
 import PaletteListWithStyles from './styles/PaletteListWithStyles';
+import usePaletteListState from './hooks/usePaletteListState';
 
 export default function PaletteList({ palettes, deletePalette }) {
-  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
-  const [deletingPaletteId, setDeletingPaletteId] = useState('');
-
-  const showDeleteConfirmation = (paletteId) => {
-    setDeleteConfirmationOpen(true);
-    setDeletingPaletteId(paletteId);
-  };
-
-  const hideDeleteConfirmation = () => {
-    setDeleteConfirmationOpen(false);
-    setDeletingPaletteId('');
-  };
-
-  const handleDeletePalette = () => {
-    deletePalette(deletingPaletteId);
-    hideDeleteConfirmation();
-  };
+  const {
+    deleteConfirmationOpen,
+    handleDeletePalette,
+    hideDeleteConfirmation,
+    showDeleteConfirmation,
+  } = usePaletteListState(deletePalette);
 
   return (
     <PaletteListWithStyles>
