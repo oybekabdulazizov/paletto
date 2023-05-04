@@ -17,29 +17,18 @@ export default function DraggableColourBox({
 
   const handleDeleteColour = () => deleteColour(id);
 
-  const textColour =
-    chroma(background).luminance() <= 0.4
-      ? 'rgba(255,255,255,0.7)'
-      : 'rgba(0,0,0,0.7)';
-
   return (
     <DraggableColourBoxWithStyles
-      style={{
-        background,
-        transform: CSS.Transform.toString(transform),
-        transition,
-      }}
+      backgroundColour={background}
+      transform={CSS.Transform.toString(transform)}
+      transition={transition}
       ref={setNodeRef}
       {...attributes}
       {...listeners}
     >
       <div className='box-content'>
-        <span style={{ color: textColour }}>{name}</span>
-        <DeleteIcon
-          className='delete-icon'
-          style={{ color: textColour }}
-          onClick={handleDeleteColour}
-        />
+        <span>{name}</span>
+        <DeleteIcon className='delete-icon' onClick={handleDeleteColour} />
       </div>
     </DraggableColourBoxWithStyles>
   );
