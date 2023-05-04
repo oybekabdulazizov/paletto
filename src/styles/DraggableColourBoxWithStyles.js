@@ -4,12 +4,20 @@ import sizes from './sizes';
 
 const DraggableColourBoxWithStyles = styled('div')(() => ({
   width: '25%',
-  height: '20%',
+  height: '20.3%',
   margin: '0 auto',
   display: 'inline-block',
   position: 'relative',
   cursor: 'pointer',
-  marginBottom: '-7px',
+  marginBottom: '-9px',
+  [sizes.up('xl')]: {
+    width: '25%',
+    height: '20.1%',
+  },
+  [sizes.up('xxl')]: {
+    width: '25%',
+    height: '20.04%',
+  },
   [sizes.down('lg')]: {
     width: '50%',
     height: '10%',

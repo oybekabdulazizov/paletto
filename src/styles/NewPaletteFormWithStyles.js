@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import sizes from './sizes';
 
 const drawerWidth = 360;
 
@@ -45,7 +46,7 @@ const NewPaletteFormWithStyles = styled('div', {
     fontSize: '0.8em',
   },
   '.main': {
-    height: 'calc(100vh - 64px)',
+    height: 'calc(100vh - 68px)',
     flexGrow: 1,
     padding: '0',
     transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.6, 1)',
@@ -56,6 +57,15 @@ const NewPaletteFormWithStyles = styled('div', {
       transitionDuration: '195ms',
       marginLeft: 0,
     }),
+    [sizes.down('xl')]: {
+      height: 'calc(100vh - 68px)',
+    },
+    [sizes.down('lg')]: {
+      height: 'calc(100vh - 46px)',
+    },
+    [sizes.down('sm')]: {
+      height: 'calc(100vh - 26px)',
+    },
   },
 }));
 

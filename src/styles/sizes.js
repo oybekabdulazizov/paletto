@@ -1,5 +1,11 @@
 export default {
-  up() {},
+  up(size) {
+    const sizes = {
+      xl: '2100px',
+      xxl: '3500px',
+    };
+    return `@media (min-width: ${sizes[size]})`;
+  },
   down(size) {
     const sizes = {
       xs: '575.98px',
