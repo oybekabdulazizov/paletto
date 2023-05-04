@@ -1,24 +1,14 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 
-import { generatePalette } from './colourHelpers';
 import ColourBox from './ColourBox';
 import NavBar from './NavBar';
 import PaletteFooter from './PaletteFooter';
+import usePaletteState from './hooks/usePaletteState';
 import PaletteWithStyles from './styles/PaletteWithStyles';
 
 export default function Palette({ palettes }) {
-  const { id } = useParams();
-  const palette = generatePalette(
-    palettes.find((palette) => palette.id === id)
-  );
-
-  const [level, setLevel] = useState(500);
-  const [format, setFormat] = useState('hex');
-
-  const changeLevel = (lvl) => setLevel(lvl);
-
-  const changeFormat = (fmt) => setFormat(fmt);
+  const { changeFormat, changeLevel, format, level, palette } =
+    usePaletteState(palettes);
 
   const colourBoxes = palette.colours[level].map((colour) => (
     <ColourBox
@@ -26,7 +16,7 @@ export default function Palette({ palettes }) {
       name={colour.name}
       key={colour.id}
       colourId={colour.id}
-      paletteId={id}
+      paletteId={palette.id}
       showFullPalette={true}
     />
   ));
