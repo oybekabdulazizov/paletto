@@ -45,6 +45,26 @@ const NewPaletteFormWithStyles = styled('div', {
     width: '49%',
     fontSize: '0.8em',
   },
+  '.placeholder': {
+    margin: '0 auto',
+    height: '96%',
+    width: '90%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: '0.4',
+    fontWeight: '700',
+    fontSize: '1.6em',
+    fontStyle: 'italic',
+    div: {
+      textAlign: 'center',
+      padding: '0 1em',
+    },
+    [sizes.down('sm')]: {
+      opacity: open && '0',
+    },
+  },
   '.main': {
     height: 'calc(100vh - 68px)',
     flexGrow: 1,

@@ -81,23 +81,30 @@ export default function NewPaletteForm({ palettes, savePalette }) {
       </Drawer>
       <div className='main'>
         <div className='drawer-header' />
-        <DndContext
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-          sensors={sensors}
-        >
-          <SortableContext items={colours} strategy={rectSortingStrategy}>
-            {colours.map((c) => (
-              <DraggableColourBox
-                key={c.id}
-                id={c.id}
-                name={c.name}
-                background={c.colour}
-                deleteColour={handleDeleteColour}
-              />
-            ))}
-          </SortableContext>
-        </DndContext>
+        {paletteEmpty ? (
+          <div className='placeholder'>
+            <div>Yo!</div>
+            <div>Smash the RANDOM COLOUR button to get some inspiration 🤠</div>
+          </div>
+        ) : (
+          <DndContext
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+            sensors={sensors}
+          >
+            <SortableContext items={colours} strategy={rectSortingStrategy}>
+              {colours.map((c) => (
+                <DraggableColourBox
+                  key={c.id}
+                  id={c.id}
+                  name={c.name}
+                  background={c.colour}
+                  deleteColour={handleDeleteColour}
+                />
+              ))}
+            </SortableContext>
+          </DndContext>
+        )}
       </div>
     </NewPaletteFormWithStyles>
   );
