@@ -12,7 +12,6 @@ import './styles/App.css';
 
 export default function App() {
   const { palettes, deletePalette, savePalette } = useAppState();
-
   const location = useLocation();
 
   return (

@@ -52,7 +52,7 @@ export default styled('div')(({ showFullPalette }) => ({
     width: '100%',
     left: '0px',
     top: '0px',
-    padding: '0 5px 6px 6px',
+    padding: '5px 5px 0 5px',
     color: 'black',
     letterSpacing: '1px',
     fontSize: '1em',

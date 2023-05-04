@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
 import { ValidatorForm } from 'react-material-ui-form-validator';
 
-export default function useColourPickerFormstate({
-  randomColour,
-  colours,
-  addColour,
-}) {
+export default function useColourPickerFormState(props) {
+  const { addColour, colours, randomColour } = props;
   const [newColourName, setNewColourName] = useState('');
   const [newColour, setNewColour] = useState(randomColour);
 

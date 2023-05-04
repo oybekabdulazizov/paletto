@@ -4,7 +4,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { ChromePicker } from 'react-color';
 import chroma from 'chroma-js';
 
-import useColourPickerFormstate from './hooks/useColourPickerFormState';
+import useColourPickerFormState from './hooks/useColourPickerFormState';
 import ColourPickerFormWithStyles from './styles/ColourPickerFormWithStyles';
 
 export default function ColourPickerForm(props) {
@@ -15,7 +15,7 @@ export default function ColourPickerForm(props) {
     handleNewColourNameChange,
     newColour,
     newColourName,
-  } = useColourPickerFormstate(props);
+  } = useColourPickerFormState(props);
 
   return (
     <ColourPickerFormWithStyles>

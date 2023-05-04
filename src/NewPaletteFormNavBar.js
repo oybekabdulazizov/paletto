@@ -4,8 +4,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import IconButton from '@mui/material/IconButton';
-import { Button } from '@mui/material';
-import { Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 import PaletteMetaForm from './PaletteMetaForm';
 import NewPaletteFormNavBarWithStyles from './styles/NewPaletteFormNavBarWithStyles';
