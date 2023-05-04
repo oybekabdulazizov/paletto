@@ -18,7 +18,10 @@ export default function ColourPickerForm(props) {
   } = useColourPickerFormState(props);
 
   return (
-    <ColourPickerFormWithStyles>
+    <ColourPickerFormWithStyles
+      paletteFull={paletteFull}
+      backgroundColour={newColour}
+    >
       <ChromePicker
         className='colour-picker'
         color={newColour}
@@ -43,10 +46,6 @@ export default function ColourPickerForm(props) {
           type='submit'
           disabled={paletteFull}
           className='add-colour-btn'
-          style={{
-            backgroundColor: paletteFull ? 'gray' : newColour,
-            color: chroma(newColour).luminance() <= 0.3 ? 'white' : 'black',
-          }}
         >
           {paletteFull ? 'Palette Full' : 'Add Colour'}
         </Button>
