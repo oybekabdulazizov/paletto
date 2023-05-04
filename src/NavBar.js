@@ -1,32 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { IconButton, MenuItem, Select, Snackbar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
+import useNavBarState from './hooks/useNavBarState';
 import NavBarWithStyles from './styles/NavBarWithStyles';
 
-export default function NavBar({
-  level,
-  changeLevel,
-  changeFormat,
-  showSlider,
-}) {
-  const [format, setFormat] = useState('hex');
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-
-  function handleChangeLevel(level) {
-    changeLevel(level);
-  }
-
-  function handleChangeFormat(e) {
-    setFormat(e.target.value);
-    setSnackbarOpen(true);
-    changeFormat(e.target.value);
-  }
-
-  const handleCloseSnackbar = () => setSnackbarOpen(false);
+export default function NavBar(props) {
+  const { level, showSlider } = props;
+  const {
+    format,
+    handleChangeFormat,
+    handleChangeLevel,
+    handleCloseSnackbar,
+    snackbarOpen,
+  } = useNavBarState(props);
 
   return (
     <NavBarWithStyles>
