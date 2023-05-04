@@ -59,12 +59,9 @@ export default function PaletteList({ palettes, deletePalette }) {
           onClose={hideDeleteConfirmation}
           aria-labelledby='delete-dialog-title'
         >
-          <DialogTitle>Delete palette '{}'?</DialogTitle>
+          <DialogTitle>Delete this palette?</DialogTitle>
           <List sx={{ pt: 0 }}>
-            <ListItem
-              disableGutters
-              sx={{ display: 'inline-block', width: '50%' }}
-            >
+            <ListItem>
               <ListItemButton onClick={handleDeletePalette}>
                 <ListItemAvatar>
                   <Avatar sx={{ bgcolor: green[100], color: green[600] }}>
@@ -74,10 +71,7 @@ export default function PaletteList({ palettes, deletePalette }) {
                 <ListItemText primary={'Delete'} />
               </ListItemButton>
             </ListItem>
-            <ListItem
-              disableGutters
-              sx={{ display: 'inline-block', width: '50%' }}
-            >
+            <ListItem>
               <ListItemButton onClick={hideDeleteConfirmation}>
                 <ListItemAvatar>
                   <Avatar sx={{ bgcolor: red[100], color: red[600] }}>

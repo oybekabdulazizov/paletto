@@ -29,7 +29,7 @@ export default styled('div')(() => ({
     },
     '@media (max-width: 400px)': {
       width: '20em',
-      margin: '0 1em',
+      margin: '0 1em 1em 1em',
     },
   },
   '.nav': {
