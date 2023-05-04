@@ -8,6 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Picker from '@emoji-mart/react';
 import data from '@emoji-mart/data';
+
 import usePaletteMetaFormState from './hooks/usePaletteMetaFormState';
 
 export default function PaletteMetaForm({ savePalette, palettes, hideForm }) {

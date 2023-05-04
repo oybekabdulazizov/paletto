@@ -14,8 +14,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
 import MiniPalette from './MiniPalette';
-import PaletteListWithStyles from './styles/PaletteListWithStyles';
 import usePaletteListState from './hooks/usePaletteListState';
+import PaletteListWithStyles from './styles/PaletteListWithStyles';
 
 export default function PaletteList({ palettes, deletePalette }) {
   const {
