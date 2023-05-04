@@ -22,14 +22,8 @@ import {
 import DraggableColourBox from './DraggableColourBox';
 import NewPaletteFormNavBar from './NewPaletteFormNavBar';
 import ColourPickerForm from './ColourPickerForm';
-import coloursInventory from './data/coloursInventory';
+import { getRandomColour } from './utilities';
 import NewPaletteFormWithStyles from './styles/NewPaletteFormWithStyles';
-
-const getRandomColour = () => {
-  let randomColour =
-    coloursInventory[Math.floor(Math.random() * coloursInventory.length)];
-  return randomColour;
-};
 
 export default function NewPaletteForm({ palettes, savePalette }) {
   const [open, setOpen] = useState(true);
