@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from '@mui/material';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { ChromePicker } from 'react-color';
-import chroma from 'chroma-js';
 
 import useColourPickerFormState from './hooks/useColourPickerFormState';
 import ColourPickerFormWithStyles from './styles/ColourPickerFormWithStyles';

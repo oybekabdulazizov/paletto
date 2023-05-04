@@ -1,6 +1,5 @@
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import chroma from 'chroma-js';
 import { CSS } from '@dnd-kit/utilities';
 import { useSortable } from '@dnd-kit/sortable';
 

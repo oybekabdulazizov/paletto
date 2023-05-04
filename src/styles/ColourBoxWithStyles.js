@@ -55,7 +55,6 @@ export default styled('div')(({ backgroundColour, showFullPalette }) => ({
     left: '0px',
     top: '0px',
     padding: '5px 5px 0 5px',
-    color: 'black',
     letterSpacing: '1px',
     fontSize: '1em',
     color: chroma(backgroundColour).luminance() <= 0.4 ? 'white' : 'black',

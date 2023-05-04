@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import chroma from 'chroma-js';
 
 import useColourBoxState from './hooks/useColourBoxState';
 import ColourBoxWithStyles from './styles/ColourBoxWithStyles';
