@@ -1,117 +1,36 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { Button } from '@mui/material';
-import {
-  DndContext,
-  PointerSensor,
-  closestCenter,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
-import {
-  SortableContext,
-  arrayMove,
-  rectSortingStrategy,
-} from '@dnd-kit/sortable';
+import { closestCenter, DndContext } from '@dnd-kit/core';
+import { SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 
 import DraggableColourBox from './DraggableColourBox';
 import NewPaletteFormNavBar from './NewPaletteFormNavBar';
 import ColourPickerForm from './ColourPickerForm';
 import { getRandomColour } from './utilities';
+import useNewPaletteFormState from './hooks/useNewPaletteFormState';
 import NewPaletteFormWithStyles from './styles/NewPaletteFormWithStyles';
 
 export default function NewPaletteForm({ palettes, savePalette }) {
-  const [open, setOpen] = useState(true);
-  const [colours, setColours] = useState([]);
-  let paletteFull = colours.length >= 20;
+  const {
+    colours,
+    handleAddColour,
+    handleAddRandomColour,
+    handleClearPalette,
+    handleDeleteColour,
+    handleDragEnd,
+    handleDrawerClose,
+    handleDrawerOpen,
+    handleSavePalette,
+    open,
+    paletteFull,
+    sensors,
+  } = useNewPaletteFormState(savePalette);
   let paletteEmpty = colours.length < 1;
-
-  const history = useNavigate();
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 1,
-      },
-    })
-  );
-
-  const handleDrawerOpen = () => setOpen(true);
-
-  const handleDrawerClose = () => setOpen(false);
-
-  const handleAddColour = (newColour, newColourName) => {
-    if (!paletteFull) {
-      setColours([
-        ...colours,
-        {
-          name: newColourName,
-          id: newColourName.toLowerCase().replace(/ /g, ''),
-          colour: newColour,
-        },
-      ]);
-    }
-  };
-
-  const handleAddRandomColour = () => {
-    function duplicateExists(colourId) {
-      return colours.some((c) => c.id === colourId);
-    }
-    let randomColour;
-    let isDuplicateColour = true;
-    while (isDuplicateColour) {
-      randomColour = getRandomColour();
-      isDuplicateColour = duplicateExists(randomColour.id);
-    }
-
-    if (!paletteFull) {
-      setColours([
-        ...colours,
-        {
-          name: randomColour.name,
-          id: randomColour.id,
-          colour: randomColour.colour,
-        },
-      ]);
-    }
-  };
-
-  const handleSavePalette = (newPaletteName, emoji) => {
-    savePalette({
-      paletteName: newPaletteName,
-      id: newPaletteName.toLowerCase().replace(/ /g, '-'),
-      emoji: emoji,
-      colours,
-    });
-    history('/');
-  };
-
-  const handleDeleteColour = (id) => {
-    const filteredColours = colours.filter((c) => c.id !== id);
-    setColours([...filteredColours]);
-  };
-
-  const handleClearPalette = () => setColours([]);
-
-  const handleDragEnd = (e) => {
-    const { active, over } = e;
-    if (active.id !== over.id) {
-      setColours(() => {
-        const activeColourIndex = colours.indexOf(
-          colours.find((c) => c.id === active.id)
-        );
-        const overColourIndex = colours.indexOf(
-          colours.find((c) => c.id === over.id)
-        );
-        return arrayMove(colours, activeColourIndex, overColourIndex);
-      });
-    }
-  };
 
   return (
     <NewPaletteFormWithStyles open={open}>
