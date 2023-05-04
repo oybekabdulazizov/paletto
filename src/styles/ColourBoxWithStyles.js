@@ -57,10 +57,16 @@ export default styled('div')(({ backgroundColour, showFullPalette }) => ({
     padding: '5px 5px 0 5px',
     letterSpacing: '1px',
     fontSize: '1em',
-    color: chroma(backgroundColour).luminance() <= 0.4 ? 'white' : 'black',
+    color:
+      chroma(backgroundColour).luminance() <= 0.4
+        ? 'rgba(255,255,255,0.7)'
+        : 'rgba(0,0,0,0.7)',
   },
   '.see-more': {
-    color: chroma(backgroundColour).luminance() <= 0.4 ? 'white' : 'black',
+    color:
+      chroma(backgroundColour).luminance() <= 0.4
+        ? 'rgba(255,255,255,0.7)'
+        : 'rgba(0,0,0,0.7)',
     background: 'rgba(255, 255, 255, 0.3)',
     border: 'none',
     outline: 'none',
@@ -113,7 +119,10 @@ export default styled('div')(({ backgroundColour, showFullPalette }) => ({
     },
   },
   '.copy-msg-h1': {
-    color: chroma(backgroundColour).luminance() <= 0.4 ? 'white' : 'black',
+    color:
+      chroma(backgroundColour).luminance() <= 0.4
+        ? 'rgba(255,255,255,0.7)'
+        : 'rgba(0,0,0,0.7)',
     fontSize: '4em',
     fontWeight: '400',
     width: '100%',
@@ -128,7 +137,10 @@ export default styled('div')(({ backgroundColour, showFullPalette }) => ({
     },
   },
   '.copy-msg-bg': {
-    color: chroma(backgroundColour).luminance() <= 0.4 ? 'white' : 'black',
+    color:
+      chroma(backgroundColour).luminance() <= 0.4
+        ? 'rgba(255,255,255,0.7)'
+        : 'rgba(0,0,0,0.7)',
     margin: '10px 0 0 0',
     fontSize: '1.6em',
     fontWeight: '100',

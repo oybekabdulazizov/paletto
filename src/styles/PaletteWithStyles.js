@@ -17,7 +17,7 @@ export default styled('div')(() => ({
     display: 'inline-block',
     position: 'relative',
     cursor: 'pointer',
-    marginBottom: '-4px',
+    marginBottom: '-5px',
     backgroundColor: 'black',
     a: {
       border: 'none',
@@ -38,7 +38,7 @@ export default styled('div')(() => ({
       transition: '0.4s ease',
       textTransform: 'uppercase',
       textDecoration: 'none',
-      color: 'white',
+      color: 'rgba(255,255,255,0.7)',
     },
     [sizes.down('lg')]: {
       width: '25%',
