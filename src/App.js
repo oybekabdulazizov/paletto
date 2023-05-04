@@ -1,34 +1,19 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 
-import seedPalette from './data/seedPalette';
 import PaletteList from './PaletteList';
 import Palette from './Palette';
 import SingleColourPalette from './SingleColourPalette';
 import NewPaletteForm from './NewPaletteForm';
+import useAppState from './hooks/useAppState';
 
 import './styles/App.css';
 
 export default function App() {
-  const [palettes, setPalettes] = useState(
-    JSON.parse(window.localStorage.getItem('palettes')) || seedPalette
-  );
+  const { palettes, deletePalette, savePalette } = useAppState();
 
   const location = useLocation();
-
-  const savePalette = (newPalette) => setPalettes([...palettes, newPalette]);
-
-  const deletePalette = (id) =>
-    setPalettes(palettes.filter((palette) => palette.id !== id));
-
-  const syncPalette = useCallback(() => {
-    window.localStorage.setItem('palettes', JSON.stringify(palettes));
-  }, [palettes]);
-
-  useEffect(() => {
-    syncPalette();
-  }, [syncPalette]);
 
   return (
     <div className='App'>
