@@ -108,13 +108,13 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     const { active, over } = e;
     if (active.id !== over.id) {
       setColours(() => {
-        const activeColouri = colours.iOf(
+        const activeColourIndex = colours.indexOf(
           colours.find((c) => c.id === active.id)
         );
-        const overColourIndex = colours.iOf(
+        const overColourIndex = colours.indexOf(
           colours.find((c) => c.id === over.id)
         );
-        return arrayMove(colours, activeColouri, overColourIndex);
+        return arrayMove(colours, activeColourIndex, overColourIndex);
       });
     }
   };
