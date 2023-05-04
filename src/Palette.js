@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { generatePalette } from './colourHelpers';
 import ColourBox from './ColourBox';
@@ -12,9 +12,6 @@ export default function Palette({ palettes }) {
   const palette = generatePalette(
     palettes.find((palette) => palette.id === id)
   );
-  if (!palette) {
-    <Navigate to='/' replace={true} />;
-  }
 
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState('hex');

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { generatePalette } from './colourHelpers';
 import ColourBox from './ColourBox';
@@ -12,9 +12,6 @@ export default function SingleColourPalette({ palettes }) {
   const palette = generatePalette(
     palettes.find((palette) => palette.id === paletteId)
   );
-  if (!palette) {
-    <Navigate to='/' replace={true} />;
-  }
 
   const [format, setFormat] = useState('hex');
 
