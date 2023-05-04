@@ -1,41 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button } from '@mui/material';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { ChromePicker } from 'react-color';
 import chroma from 'chroma-js';
 
+import useColourPickerFormstate from './hooks/useColourPickerFormState';
 import ColourPickerFormWithStyles from './styles/ColourPickerFormWithStyles';
 
-export default function ColourPickerForm({
-  addColour,
-  colours,
-  paletteFull,
-  randomColour,
-}) {
-  const [newColourName, setNewColourName] = useState('');
-  const [newColour, setNewColour] = useState(randomColour);
-
-  useEffect(() => {
-    ValidatorForm.addValidationRule('isColourNameUnique', (value) =>
-      colours.every((c) => c.name.toLowerCase() !== value.toLowerCase())
-    );
-
-    ValidatorForm.addValidationRule('isColourUnique', (value) =>
-      colours.every((c) => c.colour !== newColour)
-    );
-  }, [colours, newColour]);
-
-  const handleNewColourNameChange = (e) => {
-    e.preventDefault();
-    setNewColourName(e.target.value);
-  };
-
-  const handleAddColour = () => {
-    addColour(newColour, newColourName);
-    setNewColourName('');
-  };
-
-  const handleChangeComplete = (newCol) => setNewColour(newCol.hex);
+export default function ColourPickerForm(props) {
+  const { paletteFull } = props;
+  const {
+    handleAddColour,
+    handleChangeComplete,
+    handleNewColourNameChange,
+    newColour,
+    newColourName,
+  } = useColourPickerFormstate(props);
 
   return (
     <ColourPickerFormWithStyles>
