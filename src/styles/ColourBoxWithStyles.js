@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import chroma from 'chroma-js';
 
 import sizes from './sizes';
 
-export default styled('div')(({ showFullPalette }) => ({
+export default styled('div')(({ backgroundColour, showFullPalette }) => ({
+  backgroundColor: backgroundColour,
   width: '20%',
   height: showFullPalette ? '25%' : '50%',
   margin: '0 auto',
@@ -56,8 +58,10 @@ export default styled('div')(({ showFullPalette }) => ({
     color: 'black',
     letterSpacing: '1px',
     fontSize: '1em',
+    color: chroma(backgroundColour).luminance() <= 0.4 ? 'white' : 'black',
   },
   '.see-more': {
+    color: chroma(backgroundColour).luminance() <= 0.4 ? 'white' : 'black',
     background: 'rgba(255, 255, 255, 0.3)',
     border: 'none',
     outline: 'none',
@@ -72,6 +76,7 @@ export default styled('div')(({ showFullPalette }) => ({
     textTransform: 'uppercase',
   },
   '.copy-overlay': {
+    backgroundColor: backgroundColour,
     opacity: '0',
     zIndex: '0',
     position: 'absolute',
@@ -109,6 +114,7 @@ export default styled('div')(({ showFullPalette }) => ({
     },
   },
   '.copy-msg-h1': {
+    color: chroma(backgroundColour).luminance() <= 0.4 ? 'white' : 'black',
     fontSize: '4em',
     fontWeight: '400',
     width: '100%',
@@ -123,6 +129,7 @@ export default styled('div')(({ showFullPalette }) => ({
     },
   },
   '.copy-msg-bg': {
+    color: chroma(backgroundColour).luminance() <= 0.4 ? 'white' : 'black',
     margin: '10px 0 0 0',
     fontSize: '1.6em',
     fontWeight: '100',

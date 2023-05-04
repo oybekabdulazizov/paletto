@@ -14,42 +14,30 @@ export default function ColourBox({
   showFullPalette,
 }) {
   const { copied, changeCopyState } = useColourBoxState();
-  const textColour = chroma(background).luminance() <= 0.4 ? 'white' : 'black';
 
   return (
     <CopyToClipboard text={background} onCopy={changeCopyState}>
       <ColourBoxWithStyles
+        backgroundColour={background}
         showFullPalette={showFullPalette}
-        style={{ background }}
       >
-        <div
-          className={`copy-overlay ${copied && `show`}`}
-          style={{ background }}
-        />
+        <div className={`copy-overlay ${copied && `show`}`} />
         <div className={`copy-msg ${copied && `show`}`}>
-          <h1 className='copy-msg-h1' style={{ color: textColour }}>
-            Copied!
-          </h1>
-          <p className='copy-msg-bg' style={{ color: textColour }}>
-            {background}
-          </p>
+          <h1 className='copy-msg-h1'>Copied!</h1>
+          <p className='copy-msg-bg'>{background}</p>
         </div>
         <div className='copy-container'>
           <div className='box-content'>
-            <span style={{ color: textColour }}>{name}</span>
+            <span>{name}</span>
           </div>
-          <button className='copy-btn' style={{ color: textColour }}>
-            Copy
-          </button>
+          <button className='copy-btn'>Copy</button>
         </div>
         {showFullPalette && (
           <Link
             to={`/palette/${paletteId}/${colourId}`}
             onClick={(e) => e.stopPropagation()}
           >
-            <span className='see-more' style={{ color: textColour }}>
-              More
-            </span>
+            <span className='see-more'>More</span>
           </Link>
         )}
       </ColourBoxWithStyles>
