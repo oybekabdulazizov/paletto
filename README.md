@@ -29,6 +29,7 @@ I really recommend trying this one out. You'll like it for sure 😊
 
 **2. Install dependencies:**
 > `cd paletto`
+
 > `npm install`
 
 **3. Run Paletto:** 
