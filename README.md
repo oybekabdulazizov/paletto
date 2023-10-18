@@ -2,7 +2,7 @@
 
 ## Description
 
-Paletto is a versatile colour palette generator that empowers designers, developers, and creatives to effortlessly create and organize beautiful color palettes, explore color shades, and access color codes. With Paletto, you can streamline your color workflow and bring your creative visions to life. 
+Paletto is a versatile colour palette generator that empowers designers, developers, and creatives to effortlessly create and organize beautiful colour palettes, explore colour shades, and access colour codes. With Paletto, you can streamline your colour workflow and bring your creative visions to life. 
 
 
 
